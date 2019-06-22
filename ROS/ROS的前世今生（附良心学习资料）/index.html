@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ROS,经验分享,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="对于ROS(Robot Operating System)系统的学习也有一段时间，何不总结一下自己浅薄的理解？">
+<meta name="keywords" content="ROS,经验分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS的前世今生（附良心学习资料）">
+<meta property="og:url" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/index.html">
+<meta property="og:site_name" content="Steven&#39;s Station">
+<meta property="og:description" content="对于ROS(Robot Operating System)系统的学习也有一段时间，何不总结一下自己浅薄的理解？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/ros.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/4.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/1.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/2.jpg">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/3.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/Distributions.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/turtlesim.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/5.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/6.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/components.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/tool.png">
+<meta property="og:updated_time" content="2019-06-10T03:33:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ROS的前世今生（附良心学习资料）">
+<meta name="twitter:description" content="对于ROS(Robot Operating System)系统的学习也有一段时间，何不总结一下自己浅薄的理解？">
+<meta name="twitter:image" content="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/ros.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/">
+
+
+
+
+
+  <title>ROS的前世今生（附良心学习资料） | Steven's Station</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <a href="https://github.com/sun-coke" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Steven's Station</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不能一招制敌，那就脚踏实地</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/ROS/ROS的前世今生（附良心学习资料）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steven Suen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Steven's Station">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ROS的前世今生（附良心学习资料）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T10:25:42+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+    
+
+      
+      
+
+      
+        <p>对于ROS(Robot Operating System)系统的学习也有一段时间，何不总结一下自己浅薄的理解？</p>
+<p><img src="/ROS/ROS的前世今生（附良心学习资料）/ros.png" alt="ROS"></p>
+<a id="more"></a>
+<h1 id="ROS定义"><a href="#ROS定义" class="headerlink" title="ROS定义"></a>ROS定义</h1><p>ROS是一个开放源代码的机器人元操作系统。它提供了我们对操作系统期望的服务,包括硬件抽象、低级设备控制、常用功能的实现、进程之间的消息传递以及功能包管理。它还提供了用于在多台计算机之间获取、构建、编写和运行代码的工具和库。</p>
+<p>换句话说,ROS是一种分布式系统（中间件），基于点对点的通信机制，有类似于windows操作系统等的硬件抽象,但它并不是一个传统意义上的操作系统。此外,它是一个机器人软件平台,提供了专门为机器人开发应用程序的各种开发环境。</p>
+<hr>
+<h1 id="ROS特征"><a href="#ROS特征" class="headerlink" title="ROS特征"></a>ROS特征</h1><p>■ 分布式进程:它以可执行进程的最小单位(节点,Node)的形式进行编程,每个进程独立运行,并有机地收发数据。<br><img src="/ROS/ROS的前世今生（附良心学习资料）/4.png" alt="4"><br>■ 功能包单位管理:由于它以功能包的形式管理着多个具有相同目的的进程,所以开发和使用起来很容易,并且很容易共享、修改和重新发布，这些功能包都公开在公共存储库(例如GitHub)上,并标识许可证。<br><img src="/ROS/ROS的前世今生（附良心学习资料）/1.png" alt="1"><br>■ API类型:使用ROS开发程序时,ROS被设计为可以简单地通过调用API将其加载到其使用的代码中。<br><img src="/ROS/ROS的前世今生（附良心学习资料）/2.jpg" alt="2"><br>■ 支持多种编程语言:跨语言编程系统，它可以用于如JAVA、C#、Lua和Ruby等语言,也可以用于机器人中常用的编程语言,如Python、C++和Lisp。<br><img src="/ROS/ROS的前世今生（附良心学习资料）/3.png" alt="3"></p>
+<hr>
+<h1 id="ROS历史"><a href="#ROS历史" class="headerlink" title="ROS历史"></a>ROS历史</h1><p>ROS前身是由摩根·奎格利(Morgan Quigley)博士于2007年5月份为了美国的斯坦福大学人工智能研究所进行的STAIR(STanford AI Robot)项目开发的Switchyard 系统。</p>
+<p>2007年11月开始,由美国的机器人公司Willow Garage承接开发ROS。Willow Garage是个体机器人(Personal robotics)及服务机器人领域中非常有名的公司。它以开发和支持我们熟知的视觉处理开源代码OpenCV和Kinect等在三维设备广泛使用的点云库(PCL,Point Cloud Library)而著名。</p>
+<p>这家Willow Garage从2007年11月开始着手ROS的开发,在2010年1月22日向全世界发布了ROS1.0。我们熟知的ROS Box Turtle版是2010年3月1日首次发布的。此后,和Ubuntu和安卓一样,每个版本都以C Turtle、Diamondback等按字母顺序起名。ROS基于BSD许可证(BSD 3-Clause License)及Apache License 2.0),因此，任何人可以修改、重用和重新发布。有面向开发者和用户的ROSDay和ROSCon学术会议,还有叫做ROS Meetup的多种社区群。</p>
+<p>Willow Garage公司以ROS的名称延续了其开发工作。其第六次发布版ROS Groovy Galapagos是Willow Garage的最后的版本。Willow Garage在2013年进入商业服务机器人领域之后遇到诸多困难并分解为多个创业公司,此时ROS被转让给开源机器人工程基金会(OSRF,Open Source Robotics Foundation)来维护。之后OSRF继续发布了4个新版本。从2017年5月开始OSRF更名为Open Robotics,至今开发、运营和管理ROS。ROS的每个版本的名称的首字母是按照英文字母的顺序来制定的,并将乌龟(Turtle)作为图标。</p>
+<p><img src="/ROS/ROS的前世今生（附良心学习资料）/Distributions.png" alt="Distributions"></p>
+<h2 id="版本规则"><a href="#版本规则" class="headerlink" title="版本规则"></a>版本规则</h2><p>ROS除了1.0版本以外,都像Ubuntu和安卓一样,将版本名的首字母按英文字母顺序来安排。比如,Kinetic Kame是字母表的K版本,是第11个版本,也是第10个正式发布版。</p>
+<p>此外还有一个规则。每个版本都有一个海报形式的插图和一个乌龟图标。使用海龟作为ROS的象征很大程度上是来自于20世纪60年代MIT人工智能研究所的教育节目标志(Logo) 。在50多年前的1969年,乌龟(Turtle)机器人是使用一个叫Logo的编程语言开发的,这个机器人会根据计算机下达的命令,在地板上实际移动并可以画图。依照它,开发ROS的时候开发了叫做turtlesim的虚拟的例子程序,而这也是后来将ROS机器人成为TurtleBot的由来 。</p>
+<p><img src="/ROS/ROS的前世今生（附良心学习资料）/turtlesim.png" alt="turtlesim"></p>
+<h2 id="版本周期"><a href="#版本周期" class="headerlink" title="版本周期"></a>版本周期</h2><p>ROS的版本周期和ROS正式支持的操作系统Ubuntu的新版本发布周期一样,是每年发布两次(4月和10月)。但2013年很多用户由于频繁的升级,提议新的版本周期。因此在2013年接纳了用户们的意见,决定从Hydro Medusa版本开始,每年发布一次正式版本,时间点则在新的Ubuntu xx.04版本发布一个月之后的5月份。而恰好每年的5月23日是世界乌龟日(World Turtle Day) ,所以现在每年的这个有象征意义的一天会发布新的ROS版本。</p>
+<p>ROS的支持期间根据版本而不同,一般是发布后提供两年的支持。而针对每两年发布的Ubuntu长期支持版(Long Term Support)发布的ROS版本提供与LTS一样的5年的支持期间。比如,支持2016年的Ubuntu 16.04 LTS的ROS Kinetic Kame具有直到2021年5月的5年的支持期间。非LTS版本保持最新版本的Linux核,仅仅是进行了次要的升级以及基本的维护。因此很多ROS用户们使用偶数年度发布的LTS版本的ROS。</p>
+<hr>
+<h1 id="ROS通信"><a href="#ROS通信" class="headerlink" title="ROS通信"></a>ROS通信</h1><p>ROS是以最小化单位-节点的形式开发的,节点则通过消息(message)与其他的节点交换数据,最终成为一个大型的程序。这里的关键概念是节点之间的消息通信,它分为三种。单向消息发送/接收方式的话题(topic);双向消息请求/响应方式的服务(service);双向消息目标(goal)/结果(result)/反馈(feedback)方式的动作(action)。另外,节点中使用的参数可以从外部进行修改。这在大的框架中也可以被看作消息通信。ROS消息通信可以用一张图来说明：</p>
+<p><img src="/ROS/ROS的前世今生（附良心学习资料）/5.png" alt="5"></p>
+<p><img src="/ROS/ROS的前世今生（附良心学习资料）/6.png" alt="6"></p>
+<hr>
+<h1 id="ROS模块"><a href="#ROS模块" class="headerlink" title="ROS模块"></a>ROS模块</h1><p>ROS主要由三大模块组成：通信模块、机器人模块、工具集模块。</p>
+<p>通信模块：像之前提到的ROS1.0的通信模块是基于master主节点的点对点通讯机制，当一个节点（pub）发起会向参数服务器（master主节点）进行信息注册，当另外一个节点（sub）发起同样也会向主节点进行注册，并告知主节点需要订阅的内容，通过master主节点，发布节点同订阅节点形成了通信链路，此时，master主节点的作用也就到此结束。</p>
+<p>机器人模块：机器人模块包含了从机器人建模，仿真直到运动控制的一系列必要工具，包括标准机器人消息类型、机器人几何数据、标准机器人描述语言（URDF）、诊断、位姿变换集（tf）、定位与导航等。</p>
+<p>工具集模块：工具集模块主要集成了一些机器人学习的重要第三方库，通过API集成的工具很大程度上扩展了ROS的强大功能。同时，ROS中提供的rqt可视化工具对于机器人运动中的实时数据检测起到了重要的作用，方便了开发人员的调参工作，同时也是初学者对于首次接触大型项目必备的工具。</p>
+<p><img src="/ROS/ROS的前世今生（附良心学习资料）/components.png" alt="components"></p>
+<hr>
+<h1 id="ROS组件"><a href="#ROS组件" class="headerlink" title="ROS组件"></a>ROS组件</h1><p>ROS系统强大的兼容性能够让使用不同工具的开发者很快的入手，并找到共同话题。ROS利用丰富的API接口集成了一大批的组件库，开发者可以根据自身的开发内容很轻松的调用需要的工具。这也是ROS在机器人开发领域地位持续上升的原因。</p>
+<p><img src="/ROS/ROS的前世今生（附良心学习资料）/tool.png" alt="tool"></p>
+<p><strong>Gazebo</strong><br>Gazebo是一款3D仿真器,支持机器人开发所需的机器人、传感器和环境模型,并且通过搭载的物理引擎可以得到逼真的仿真结果。即便是开源仿真器,却具有高水准的仿真性能,因此在机器人工程领域中非常流行。</p>
+<p><strong>RViz</strong><br>RViz是ROS的三维可视化工具。它的主要目的是以三维方式显示ROS消息,可以将数据进行可视化表达。例如,可以无需编程就能表达激光测距仪(LRF)传感器中的传感器到障碍物的距离,RealSense、Kinect或Xtion等三维距离传感器的点云数据(PCD,Point Cloud Data),从相机获取的图像值等。</p>
+<p><strong>OpenCV</strong><br>OpenCV(Open source Computer Vision Library)是一个开放源代码的API函数库，采用C及C++语言编写，所有代码都经过优化，计算效率很高。该库横跨工业产品检测、机器视觉、安防、医学图像处理、自动驾驶等一系列领域的超过500个接口函数，可谓视觉神库。</p>
+<p><strong>MoveIt!</strong><br>MoveIt! 是一个集成的机械手臂库,提供多种功能,包括用于运动规划的快速逆运动学分析、用于操纵的高级算法、机械手控制、动力学、控制器和运动规划。通过提供一个GUI来协助MoveIt!所需的各种设置,它还具有的一个优点是没有对机械手臂的高级知识也能容易使用。</p>
+<p><strong>ROS-I</strong><br>ROS-I包含用于工业硬件的库，工具和驱动程序，它由ROS-Industrial Consortium支持和指导。ROS-I主要目的在于将ROS应用于工业领域，开发满足工业用途的可靠软件以及良好的API。</p>
+<hr>
+<h1 id="ROS学习资料"><a href="#ROS学习资料" class="headerlink" title="ROS学习资料"></a>ROS学习资料</h1><p><strong>ROS学习书籍链接:</strong><br>                <a href="https://pan.baidu.com/s/1vn-CpUBsKBNfuo6CoQFd_g" target="_blank" rel="noopener">https://pan.baidu.com/s/1vn-CpUBsKBNfuo6CoQFd_g</a> 提取码: jxt7 </p>
+<p><strong>ROS学习网站链接：</strong><br>                <a href="http://www.ros.org/" target="_blank" rel="noopener">http://www.ros.org/</a><br>                <a href="http://www.willowgarage.com/" target="_blank" rel="noopener">http://www.willowgarage.com/</a><br>                <a href="http://www.theconstructsim.com/" target="_blank" rel="noopener">http://www.theconstructsim.com/</a><br>                <a href="https://www.ncnynl.com/" target="_blank" rel="noopener">https://www.ncnynl.com/</a><br>                <a href="http://www.guyuehome.com/" target="_blank" rel="noopener">http://www.guyuehome.com/</a><br>                <a href="https://www.rosclub.cn/" target="_blank" rel="noopener">https://www.rosclub.cn/</a><br>                <a href="http://gazebosim.org/" target="_blank" rel="noopener">http://gazebosim.org/</a><br>                <a href="https://opencv.org/" target="_blank" rel="noopener">https://opencv.org/</a><br>                <a href="http://moveit.ros.org/" target="_blank" rel="noopener">http://moveit.ros.org/</a><br>                …</p>
+<p><strong>ROS社区:</strong><br>                <a href="http://www.roswiki.com/" target="_blank" rel="noopener">http://www.roswiki.com/</a>  ROS维基社区<br>                <a href="http://community.bwbot.org/" target="_blank" rel="noopener">http://community.bwbot.org/</a>  小强ROS机器人技术支持<br>                <a href="http://answers.ros.org/questions/" target="_blank" rel="noopener">http://answers.ros.org/questions/</a><br>                <a href="http://wiki.ros.org/Metrics" target="_blank" rel="noopener">http://wiki.ros.org/Metrics</a><br>                <a href="https://www.ncnynl.com/" target="_blank" rel="noopener">https://www.ncnynl.com/</a> 创客智造<br>                <a href="http://blog.exbot.net/" target="_blank" rel="noopener">http://blog.exbot.net/</a>  易科机器人实验室<br>                …</p>
+<p><strong>QQ群：</strong><br>                361379172【ROS机器人操作系统】，ROSwiki交流分享求助群<br>                144964398【ROS机器人技术交流群】<br>                253247353【ROS(机器人操作系统)】。<br>                204907939【Gaitech ROS Forum】，Turtlebot中国代理商Gaitech官方群。<br>                9820986【机器人操作系统】。<br>                109434898【ExBot开源机器人社区】。<br>                184903125【ROS机器人俱乐部】。<br>                538456117【蓝鲸智能ROS机器人技术交流群】。<br>                477659623【创客智造ROS技术交流群】。<br>                174361990【ROS移动机器人俱乐部】<br>                …</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      
+    <div>
+      
+        <div> 
+    
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束  <i class="fa fa-heart" style="font-size:12px"></i>  感谢阅读-------------</div> 
+    
+</div>
+
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ROS/" rel="tag"><i class="fa fa-tag"></i>ROS</a> 
+          
+            <a href="/tags/经验分享/" rel="tag"><i class="fa fa-tag"></i>经验分享</a> 
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ROS/ROS+Turtlebot3安装配置教程（无坑版）/" rel="next" title="ROS+Turtlebot3安装配置教程（无坑版）">
+                <i class="fa fa-chevron-left"></i> ROS+Turtlebot3安装配置教程（无坑版）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ROS/神秘有爱的小家族-乌龟帮/" rel="prev" title="神秘有爱的小家族--乌龟帮">
+                神秘有爱的小家族--乌龟帮 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDUwMy8yMTAzNA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Steven Suen">
+          <p class="site-author-name" itemprop="name">Steven Suen</p>
+           
+              <p class="site-description motion-element" itemprop="description">普通的开发者，热情的学习者</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sun-coke" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="sun_db@hust.edu.cn" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ros.org/" title="ROS wiki" target="_blank">ROS wiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.guyuehome.com/" title="古月居" target="_blank">古月居</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.ncnynl.com/" title="创客智造" target="_blank">创客智造</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.exbot.net/" title="ROS星火计划" target="_blank">ROS星火计划</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://emanual.robotis.com/" title="ROBOTIS" target="_blank">ROBOTIS</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://apollo.auto/" title="apollo" target="_blank">apollo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.voidcc.com/" title="开发小院" target="_blank">开发小院</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ROS定义"><span class="nav-number">1.</span> <span class="nav-text">ROS定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ROS特征"><span class="nav-number">2.</span> <span class="nav-text">ROS特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ROS历史"><span class="nav-number">3.</span> <span class="nav-text">ROS历史</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#版本规则"><span class="nav-number">3.1.</span> <span class="nav-text">版本规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本周期"><span class="nav-number">3.2.</span> <span class="nav-text">版本周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ROS通信"><span class="nav-number">4.</span> <span class="nav-text">ROS通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ROS模块"><span class="nav-number">5.</span> <span class="nav-text">ROS模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ROS组件"><span class="nav-number">6.</span> <span class="nav-text">ROS组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ROS学习资料"><span class="nav-number">7.</span> <span class="nav-text">ROS学习资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Steven Suen</span>
+</div>
+
+<!--
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+-->
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> <script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("04/01/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站总访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</body>
+</html>

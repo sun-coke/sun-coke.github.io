@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ROS,经验分享,Launch文件,知识总结,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="想要利用空间弥补时间，学会launch文件的编写！">
+<meta name="keywords" content="ROS,经验分享,Launch文件,知识总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Launch文件编写技巧">
+<meta property="og:url" content="http://yoursite.com/ROS/Launch文件编写技巧/index.html">
+<meta property="og:site_name" content="Steven&#39;s Station">
+<meta property="og:description" content="想要利用空间弥补时间，学会launch文件的编写！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/ROS/Launch文件编写技巧/launch.png">
+<meta property="og:updated_time" content="2019-06-04T08:44:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Launch文件编写技巧">
+<meta name="twitter:description" content="想要利用空间弥补时间，学会launch文件的编写！">
+<meta name="twitter:image" content="http://yoursite.com/ROS/Launch文件编写技巧/launch.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/ROS/Launch文件编写技巧/">
+
+
+
+
+
+  <title>Launch文件编写技巧 | Steven's Station</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <a href="https://github.com/sun-coke" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Steven's Station</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不能一招制敌，那就脚踏实地</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/ROS/Launch文件编写技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steven Suen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Steven's Station">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Launch文件编写技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-21T15:49:31+08:00">
+                2019-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+    
+
+      
+      
+
+      
+        <p>想要利用空间弥补时间，学会launch文件的编写！<br><img src="/ROS/Launch文件编写技巧/launch.png" alt="launch"></p>
+<a id="more"></a>
+<blockquote class="blockquote-center"><p>怕什么真理无穷，进一寸有一寸的欢喜</p>
+</blockquote>
+<h1 id="launch简介"><a href="#launch简介" class="headerlink" title="launch简介"></a>launch简介</h1><p>ROS提供了一个同时启动节点管理器（master）和多个节点的途径，即使用启动文件（launch file）。事实上，在ROS功能包中，启动文件的使用是非常普遍的。任何包含两个或两个以上节点的系统都可以利用启动文件来指定和配置需要使用的节点。通常的命名方案是以.launch作为启动文件的后缀，启动文件是XML文件。一般把启动文件存储在取名为launch的目录中。</p>
+<p>每个XML文件都必须要包含一个根元素。根元素由一对launch标签定义：<code>&lt;launch&gt; … &lt;/launch&gt;</code>，元素都应该包含在这两个标签之内。下面贴出我们导航功能的launch启动文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">turtlebot3_navigation.launch</span><br><span class="line">&lt;launch&gt;</span><br><span class="line">  &lt;!-- Arguments --&gt;</span><br><span class="line">  &lt;arg name=&quot;model&quot; default=&quot;$(env TURTLEBOT3_MODEL)&quot; doc=&quot;model type [burger, waffle, waffle_pi]&quot;/&gt;</span><br><span class="line">  &lt;arg name=&quot;map_file&quot; default=&quot;$(find turtlebot3_navigation)/maps/map.yaml&quot;/&gt;</span><br><span class="line">  &lt;arg name=&quot;open_rviz&quot; default=&quot;true&quot;/&gt;</span><br><span class="line">  &lt;arg name=&quot;move_forward_only&quot; default=&quot;false&quot;/&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- Turtlebot3 --&gt;</span><br><span class="line">  &lt;include file=&quot;$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch&quot;&gt;</span><br><span class="line">    &lt;arg name=&quot;model&quot; value=&quot;$(arg model)&quot; /&gt;</span><br><span class="line">  &lt;/include&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- Map server --&gt;</span><br><span class="line">  &lt;node pkg=&quot;map_server&quot; name=&quot;map_server&quot; type=&quot;map_server&quot; args=&quot;$(arg map_file)&quot;/&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- AMCL --&gt;</span><br><span class="line">  &lt;include file=&quot;$(find turtlebot3_navigation)/launch/amcl.launch&quot;/&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- move_base --&gt;</span><br><span class="line">  &lt;include file=&quot;$(find turtlebot3_navigation)/launch/move_base.launch&quot;&gt;</span><br><span class="line">    &lt;arg name=&quot;model&quot; value=&quot;$(arg model)&quot; /&gt;</span><br><span class="line">    &lt;arg name=&quot;move_forward_only&quot; value=&quot;$(arg move_forward_only)&quot;/&gt;</span><br><span class="line">  &lt;/include&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- rviz --&gt;</span><br><span class="line">  &lt;group if=&quot;$(arg open_rviz)&quot;&gt; </span><br><span class="line">    &lt;node pkg=&quot;rviz&quot; type=&quot;rviz&quot; name=&quot;rviz&quot; required=&quot;true&quot;</span><br><span class="line">          args=&quot;-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz&quot;/&gt;</span><br><span class="line">  &lt;/group&gt;</span><br><span class="line">&lt;/launch&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="launch-文件运行"><a href="#launch-文件运行" class="headerlink" title="launch 文件运行"></a>launch 文件运行</h1><p>用 roslaunch 命令启动 launch 文件有两种方式。</p>
+<p>1.借助 ros package 路径启动，格式如下：<br>roslaunch  pkg_name file_name.launch<br>2.直接给出 launch 文件的绝对路径，格式如下：<br>roslaunch path_to_launchfile</p>
+<p>上述两种启动方式都可以在后边添加参数，比较常见的参数有：<br>–screen: 将node的信息（如果有的话）输出到屏幕上，而不是保存在某个 log 文件中，这样比较方便调试<br>–arg:=value: 如果 launch 文件中有待赋值的变量，可以通过这种方式赋值。</p>
+<p>roslaunch 命令运行时首先会检测系统的master是否运行，如果已经启动，就用现有的 master；如果没有启动，会先启动master,然后再执行 launch 文件中的设置，一次性把多个节点按照我们预先的配置启动起来。<br><em>注：launch 文件不需要编译，设置好之后可以直接用上述方式运行。</em></p>
+<h1 id="launch-文件格式"><a href="#launch-文件格式" class="headerlink" title="launch 文件格式"></a>launch 文件格式</h1><p>launch文件是一种xml文件，可在部添加<code>&lt;?xml version=&quot;1.0&quot;?&gt;</code>来高亮显示关键字，方便阅读。与其他 xml 格式的文件类似，launch 文件也是通过标签 (tag) 的方式书写。主要的 tag 如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;launch&gt;                &lt;!--根标签--&gt;</span><br><span class="line">&lt;node&gt;                  &lt;!--需要启动的node及其参数--&gt;</span><br><span class="line">&lt;remap&gt;                 &lt;!--设定 topic 映射--&gt;</span><br><span class="line">&lt;include&gt;               &lt;!--包含其他launch--&gt;</span><br><span class="line">&lt;arg&gt;                   &lt;!--定义变量--&gt;</span><br><span class="line">&lt;param&gt;                 &lt;!--定义参数到参数服务器--&gt;</span><br><span class="line">&lt;rosparam&gt;              &lt;!--加载yaml文件中的参数到参数服务器--&gt;</span><br><span class="line">&lt;machine&gt;               &lt;!--指定运行的机器--&gt;</span><br><span class="line">&lt;env-loader&gt;            &lt;!--设置环境变量--&gt;</span><br><span class="line">&lt;group&gt;                 &lt;!--设定分组--&gt;</span><br><span class="line">&lt;/launch&gt;               &lt;!--根标签--&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="lt-launch-gt-、-lt-node-gt"><a href="#lt-launch-gt-、-lt-node-gt" class="headerlink" title="&lt;launch&gt;、&lt;node&gt;"></a><code>&lt;launch&gt;、&lt;node&gt;</code></h1><p>这两个 tag 是 launch 文件的核心部分。基本格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;launch&gt;</span><br><span class="line"> &lt;!-- Map server --&gt;</span><br><span class="line">  &lt;node pkg=&quot;map_server&quot; name=&quot;map_server&quot; type=&quot;map_server&quot; args=&quot;$(arg map_file)&quot;/&gt;</span><br><span class="line">&lt;/launch&gt;</span><br></pre></td></tr></table></figure></p>
+<p>其中，pkg是节点所在的 package 名，type是功能包中的可执行文件名，name是节点启动之后的名字, 每一个节点都要有自己独一无二的名字。<br><em>注： roslaunch 不能保证 node 的启动顺序，因此 launch 文件中所有的 node 都应该对启动顺序有鲁棒性。</em></p>
+<p>实际上 <code>&lt;node&gt;</code> 中除了 pkg、type、name 之外还可以设置更多参数，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;launch&gt;</span><br><span class="line">    &lt;node</span><br><span class="line">        pkg=&quot;&quot;</span><br><span class="line">        type=&quot;&quot;</span><br><span class="line">        name=&quot;&quot;  </span><br><span class="line">        respawn=&quot;true&quot; </span><br><span class="line">        required=&quot;true&quot;</span><br><span class="line">        launch-prefix=&quot;xterm -e&quot;</span><br><span class="line">        output=&quot;screen&quot;</span><br><span class="line">        ns=&quot;some_namespace&quot;</span><br><span class="line">        args=&quot;&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">&lt;/launch&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上述命令中:<br><code>respawn</code>：若该节点关闭，是否可以自动重新启动。<br><code>required</code>：若该节点关闭，是否要关闭其他所有节点。<br><code>launch-prefix</code>：是否新开一个新的终端窗口执行。<br><code>output</code>：默认情况下，launch 启动 node 的信息会存入下面的 log 文件中，可以通过此处参数设置，令信息显示在屏幕上。<br><code>ns</code>：将node归入不同的 namespace，即在 node name 前加 ns 指定的前缀。<br><code>args</code>：传递参数到节点。argument参数只在launch文件中合法(相当于局部变量),不直接传给节点,所以需要通过node中的args属性进行传递.。<br>基本格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;node pkg=&quot;rviz&quot; type=&quot;rviz&quot; name=&quot;rviz&quot; required=&quot;true&quot;</span><br><span class="line">      args=&quot;-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz&quot;/&gt;(利用find寻找路径)</span><br></pre></td></tr></table></figure></p>
+<p><em>注：$() 这个符号出现的任何地方，roslaunch命令都将会把它替换成给定argument 的值(value)。</em></p>
+<p>另一个例子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;node name=&quot;add_two_ints_client&quot; pkg=&quot;beginner_tutorials&quot; </span><br><span class="line">      type=&quot;add_two_ints_client&quot; args=&quot;$(arg a) $(arg b)&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这样设置之后，在启动 roslaunch 时，可以为 args 赋值<br><code>roslaunch beginner_tutorials launch_file.launch a:=1 b:=5</code></p>
+<h1 id="lt-remap-gt"><a href="#lt-remap-gt" class="headerlink" title="&lt;remap&gt;"></a><code>&lt;remap&gt;</code></h1><p>经常作为 node tag 的子 tag 出现，可以用来修改 topic。简单地说，remap 的作用就是将topic_name进行重映射，方便同一个 node 文件被应用到不同的环境中，用 remap 从外部修改一下 topic 即可，不需要改变源文件。<br>基本格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;node pkg=&quot;pkg&quot;  type=&quot;type&quot;  name=&quot;name&quot;&gt;</span><br><span class="line">    &lt;remap from=&quot;type&quot; to=&quot;type_new&quot; /&gt;</span><br><span class="line">&lt;/node&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="lt-include-gt"><a href="#lt-include-gt" class="headerlink" title="&lt;include&gt;"></a><code>&lt;include&gt;</code></h1><p>这个标签的作用是将另一个 launch 文件添加到本 launch 文件中，类似 launch 文件的嵌套。为了程序的可移植性，最好借助 find 命令给出文件路径。<br>基本格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- AMCL --&gt;</span><br><span class="line">&lt;include file=&quot;$(find turtlebot3_navigation)/launch/amcl.launch&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上述命令中，$(find turtlebot3_navigation) 等价于本机中相应包的路径。这样即使换了其他机子，只要安装了同样的功能包，就可以找到对应的路径。<br>有时，另一个 launch 引入的 node 可能需要统一命名，或者具有类似特征的 node 名字，比如 /vehicle1/gps, /vehicle1/lidar, /vehicle1/imu，即 node 具有统一的前缀，方便查找。这可以通过设置 ns （namespace）属性来实现，命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;include file=&quot;$(find package-name)/launch-file-name &quot; </span><br><span class="line">  ns=&quot;namespace_name&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="lt-arg-gt"><a href="#lt-arg-gt" class="headerlink" title="&lt;arg&gt;"></a><code>&lt;arg&gt;</code></h1><p>通过 <code>&lt;arg&gt;</code> tag 可以使参数重复使用，也便于多处同时修改。<br><code>&lt;arg&gt;</code> 标签三种常用方法:<br><code>&lt;arg name=&quot;foo&quot;&gt;</code>: 声明一个 arg，但不赋值。稍后可以通过命令行赋值，或者通过 <code>&lt;include&gt;</code> tag 赋值。<br><code>&lt;arg name=&quot;foo&quot; default=&quot;1&quot;&gt;</code>: 赋默认值。这个值可以被命令行和 <code>&lt;include&gt;</code> tag 重写。<br><code>&lt;arg name=&quot;foo&quot; value=&quot;1&quot;&gt;</code>: 赋固定值，这个值不可以被改写.<br>基本格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Arguments --&gt;</span><br><span class="line">&lt;arg name=&quot;model&quot; default=&quot;$(env TURTLEBOT3_MODEL)&quot; doc=&quot;model type [burger, waffle, waffle_pi]&quot;/&gt;</span><br><span class="line">&lt;arg name=&quot;map_file&quot; default=&quot;$(find turtlebot3_navigation)/maps/map.yaml&quot;/&gt;</span><br><span class="line">&lt;arg name=&quot;open_rviz&quot; default=&quot;true&quot;/&gt;</span><br><span class="line">&lt;arg name=&quot;move_forward_only&quot; default=&quot;false&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="变量替换-find-和-arg"><a href="#变量替换-find-和-arg" class="headerlink" title="变量替换 $(find *) 和 $(arg *)"></a><code>变量替换 $(find *) 和 $(arg *)</code></h1><p>在 launch 文件中常用的变量替换形式有两种。<br>$(find pkg)：如果可能，强烈推荐这种基于 package 的路径设置。<br>基本格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;arg name=&quot;map_file&quot; default=&quot;$(find turtlebot3_</span><br><span class="line">          navigation)/maps/map.yaml&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>$(arg arg_name)：将此处替换成 <code>&lt;arg&gt;</code> tag 指定的 arg value.<br>基本格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;arg name=&quot;model&quot; default=&quot;$(env TURTLEBOT3_MODEL)&quot; </span><br><span class="line">     doc=&quot;model type [burger, waffle, waffle_pi]&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p> 先设置默认值，如果没有额外的赋值，就用这个默认值<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Turtlebot3 --&gt;</span><br><span class="line">&lt;include file=&quot;$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch&quot;&gt;</span><br><span class="line">  &lt;arg name=&quot;model&quot; value=&quot;$(arg model)&quot; /&gt;  #变量替换</span><br><span class="line">&lt;/include&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="lt-param-gt-与-lt-rosparam-gt"><a href="#lt-param-gt-与-lt-rosparam-gt" class="headerlink" title="&lt;param&gt; 与 &lt;rosparam&gt;"></a><code>&lt;param&gt; 与 &lt;rosparam&gt;</code></h1><p>提到 param 首先要知道 parameter server, 它由 Master 管理，提供了一个共享的字典 (dict) 类型数据。节点通过这个 server 存储、获取运行时所需的参数。<br>param server 是全局可获取, 我们可以很容易的查看其中的 param 并且修改。param 的命名与 topic 和 node 相同，都是有 namespace hierarchy 结构的，这可以防止不同来源的名字冲突。它的存取也是体现了结构性，例如下边的 params：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/camera/left/name: leftcamera</span><br><span class="line">/camera/left/exposure: 1</span><br><span class="line">/camera/right/name: rightcamera</span><br><span class="line">/camera/right/exposure: 1.1</span><br></pre></td></tr></table></figure></p>
+<p>对于上述数据，<br>读取参数 <code>/camare/left/name</code> ，可得到 <code>leftcamera</code><br>读取 <code>param /camera/left</code><br>可得到dict为<code>{name: leftcamera, exposure: 1}</code><br>读取 <code>param /camera</code><br>可得到dict为<code>{left: {name: leftcamera, exposure: 1}, right: {name: rightcamera, exposure: 1.1}}</code> </p>
+<h1 id="lt-param-gt"><a href="#lt-param-gt" class="headerlink" title="&lt;param&gt;"></a><code>&lt;param&gt;</code></h1><p>与 arg 不同，param 是共享的，并且它的取值不仅限于 value，还可以是文件，甚至是一行命令。<br>基本格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;param name=&quot;param_name&quot; type=&quot;type1&quot; value=&quot;val&quot;/&gt;     # type可以省略，系统自动判断</span><br><span class="line">&lt;param name=&quot;param_name&quot; textfile=&quot;$(find pkg)/path/file&quot;/&gt;     # 读取 file 存成 string</span><br><span class="line">&lt;param name=&quot;param_name&quot; command=&quot;$(find pkg)/exe &apos;$(find pkg)/arg.txt&apos;&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>param 可以是在 global scope 中，它的 name 就是原本的 name，也可以在某个更小的 scope 中，比如 node，那么它在全局的名字就是 node/param 形式.<br>例如在 global scope 中定义如下 param<br><code>&lt;param name=&quot;frequency&quot; type=&quot;double&quot; value=&quot;10.0&quot;/&gt;</code><br>再在 node scope 中定义如下 param<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;node name=&quot;node1&quot; pkg=&quot;pkg1&quot; type=&quot;exe1&quot;&gt;</span><br><span class="line">   &lt;param name=&quot;param1&quot; value=&quot;False&quot;/&gt;</span><br><span class="line">&lt;/node&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如果用 rosparam list列出server 中的 param，则有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/frequency</span><br><span class="line">/node1/param1   # 自动加上了 namespace 前缀</span><br></pre></td></tr></table></figure></p>
+<p>注意：虽然 param1 名字前加了 namespace，但依然是全局变量。</p>
+<h1 id="lt-rosparam-gt"><a href="#lt-rosparam-gt" class="headerlink" title="&lt;rosparam&gt;"></a><code>&lt;rosparam&gt;</code></h1><p><code>&lt;param&gt;</code> 只能对单个 param 操作，而且只有三种：value, textfile, command 形式，返回的是单个 param 的内容。<br><code>&lt;rosparam&gt;</code> 则可以批量操作，还包括一些对参数设置的命令，如 load，dump，delete 等。<br><strong>load</strong>: 从 YAML 文件中加载一批 param，格式如下：<br><code>&lt;rosparam command=&quot;load&quot; file=&quot;$(find pkg)/param.yaml&quot; /&gt;</code><br><strong>delete</strong>: 删除某个 param<br><code>&lt;rosparam command=&quot;delete&quot; param=&quot;my_param&quot; /&gt;</code><br>类似 <code>&lt;param&gt;</code> 的赋值操作<br><code>&lt;rosparam param=&quot;my_param&quot;&gt;[1,2,3,4]&lt;/rosparam&gt;</code><br>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;rosparam&gt;</span><br><span class="line">a: 1</span><br><span class="line">b: 2</span><br><span class="line">&lt;/rosparam&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>&lt;rosparam&gt;</code> tag 也可以放在 <code>&lt;node&gt;</code> tag 中, 此时 param 名字前边都加上 node namespace.</p>
+<p><strong>注：argument和parameter的区别：</strong><br>尽管术语argument和parameter在许多计算机环境中可以互换使用，它们的含义在ROS中有很大的不同。Parameters（参数）在一个运行的ROS系统中是变量(values)，它被存储在参数服务器中，运行的节点通过ros::param::get()函数访问它，并且用户可以通过 rosparam 命令行工具使用它。相比之下，arguments只有在launch文件里合法，它们的值不是直接提供给节点。</p>
+<h1 id="lt-group-gt"><a href="#lt-group-gt" class="headerlink" title="&lt;group&gt;"></a><code>&lt;group&gt;</code></h1><p>如果要对多个 node 进行同样的设置，可以用 <code>&lt;group&gt;</code>tag包含所有 node。在 group 中可以使用所有常见的 tag 进行设置，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;group ns=&quot;wg2&quot;&gt;</span><br><span class="line">    &lt;remap from=&quot;chatter&quot; to=&quot;talker&quot;/&gt; # 对该 group 中后续所有 node 都有效</span><br><span class="line">    &lt;node ... /&gt;</span><br><span class="line">    &lt;node ... &gt;</span><br><span class="line">        &lt;remap from=&quot;chatter&quot; to=&quot;talker1&quot;/&gt; # 各个 node 中可以重新设置 remap</span><br><span class="line">    &lt;/node&gt;</span><br><span class="line">&lt;/group&gt;</span><br></pre></td></tr></table></figure></p>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- rviz --&gt;</span><br><span class="line">&lt;group if=&quot;$(arg open_rviz)&quot;&gt; </span><br><span class="line">  &lt;node pkg=&quot;rviz&quot; type=&quot;rviz&quot; name=&quot;rviz&quot; required=&quot;true&quot;</span><br><span class="line">        args=&quot;-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz&quot;/&gt;</span><br><span class="line">&lt;/group&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      
+    <div>
+      
+        <div> 
+    
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束  <i class="fa fa-heart" style="font-size:12px"></i>  感谢阅读-------------</div> 
+    
+</div>
+
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ROS/" rel="tag"><i class="fa fa-tag"></i>ROS</a> 
+          
+            <a href="/tags/经验分享/" rel="tag"><i class="fa fa-tag"></i>经验分享</a> 
+          
+            <a href="/tags/Launch文件/" rel="tag"><i class="fa fa-tag"></i>Launch文件</a> 
+          
+            <a href="/tags/知识总结/" rel="tag"><i class="fa fa-tag"></i>知识总结</a> 
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ROS/神秘有爱的小家族-乌龟帮/" rel="next" title="神秘有爱的小家族--乌龟帮">
+                <i class="fa fa-chevron-left"></i> 神秘有爱的小家族--乌龟帮
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/SLAM/Cartographer ROS学习/" rel="prev" title="Cartographer ROS 学习">
+                Cartographer ROS 学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDUwMy8yMTAzNA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Steven Suen">
+          <p class="site-author-name" itemprop="name">Steven Suen</p>
+           
+              <p class="site-description motion-element" itemprop="description">普通的开发者，热情的学习者</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sun-coke" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="sun_db@hust.edu.cn" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ros.org/" title="ROS wiki" target="_blank">ROS wiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.guyuehome.com/" title="古月居" target="_blank">古月居</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.ncnynl.com/" title="创客智造" target="_blank">创客智造</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.exbot.net/" title="ROS星火计划" target="_blank">ROS星火计划</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://emanual.robotis.com/" title="ROBOTIS" target="_blank">ROBOTIS</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://apollo.auto/" title="apollo" target="_blank">apollo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.voidcc.com/" title="开发小院" target="_blank">开发小院</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#launch简介"><span class="nav-number">1.</span> <span class="nav-text">launch简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#launch-文件运行"><span class="nav-number">2.</span> <span class="nav-text">launch 文件运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#launch-文件格式"><span class="nav-number">3.</span> <span class="nav-text">launch 文件格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lt-launch-gt-、-lt-node-gt"><span class="nav-number">4.</span> <span class="nav-text">&lt;launch&gt;、&lt;node&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lt-remap-gt"><span class="nav-number">5.</span> <span class="nav-text">&lt;remap&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lt-include-gt"><span class="nav-number">6.</span> <span class="nav-text">&lt;include&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lt-arg-gt"><span class="nav-number">7.</span> <span class="nav-text">&lt;arg&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量替换-find-和-arg"><span class="nav-number">8.</span> <span class="nav-text">变量替换 $(find *) 和 $(arg *)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lt-param-gt-与-lt-rosparam-gt"><span class="nav-number">9.</span> <span class="nav-text">&lt;param&gt; 与 &lt;rosparam&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lt-param-gt"><span class="nav-number">10.</span> <span class="nav-text">&lt;param&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lt-rosparam-gt"><span class="nav-number">11.</span> <span class="nav-text">&lt;rosparam&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lt-group-gt"><span class="nav-number">12.</span> <span class="nav-text">&lt;group&gt;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Steven Suen</span>
+</div>
+
+<!--
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+-->
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> <script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("04/01/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站总访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</body>
+</html>

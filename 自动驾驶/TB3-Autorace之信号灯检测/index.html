@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ROS,自动驾驶,TB3,OpenCV,代码分享,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="利用blob算法对信号灯进行提取检测，控制TB3完成对信号灯的起停动作！">
+<meta name="keywords" content="ROS,自动驾驶,TB3,OpenCV,代码分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TB3_Autorace之信号灯检测">
+<meta property="og:url" content="http://yoursite.com/自动驾驶/TB3-Autorace之信号灯检测/index.html">
+<meta property="og:site_name" content="Steven&#39;s Station">
+<meta property="og:description" content="利用blob算法对信号灯进行提取检测，控制TB3完成对信号灯的起停动作！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之信号灯检测/0.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之信号灯检测/1.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之信号灯检测/2.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之信号灯检测/3.png">
+<meta property="og:updated_time" content="2019-06-05T13:18:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TB3_Autorace之信号灯检测">
+<meta name="twitter:description" content="利用blob算法对信号灯进行提取检测，控制TB3完成对信号灯的起停动作！">
+<meta name="twitter:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之信号灯检测/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/自动驾驶/TB3-Autorace之信号灯检测/">
+
+
+
+
+
+  <title>TB3_Autorace之信号灯检测 | Steven's Station</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <a href="https://github.com/sun-coke" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Steven's Station</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不能一招制敌，那就脚踏实地</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/自动驾驶/TB3-Autorace之信号灯检测/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steven Suen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Steven's Station">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TB3_Autorace之信号灯检测</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T17:04:35+08:00">
+                2019-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/自动驾驶/" itemprop="url" rel="index">
+                    <span itemprop="name">自动驾驶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+    
+
+      
+      
+
+      
+        <p>利用blob算法对信号灯进行提取检测，控制TB3完成对信号灯的起停动作！<br><img src="/自动驾驶/TB3-Autorace之信号灯检测/0.png" alt="0"></p>
+<a id="more"></a>
+<blockquote class="blockquote-center"><p>读书须有胆识，有眼光，有毅力，<br>胆识二字拆不开，要有识必敢有自己意见，即使一时与前人不同亦不妨，<br>前人能说得我服，是前人是，前人不能服我，是前人非，<br>人心之不同如其面，要脚踏实地，不可舍己来云人<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;——林语堂</p>
+</blockquote>
+<h1 id="订阅话题"><a href="#订阅话题" class="headerlink" title="订阅话题"></a>订阅话题</h1><p>同车道线检测<a href="https://sun-coke.github.io/2019/04/21/Launch%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99%E6%8A%80%E5%B7%A7/#more" target="_blank" rel="noopener">《TB3_Autorace之车道线检测》</a>程序一样，我们这里接收未经透视变换的原始图像信息<code>/camera/image_compensated</code>以及信号灯检测结束信号<code>/control/traffic_light_finished</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> self.sub_image_type == <span class="string">"compressed"</span>:</span><br><span class="line">    <span class="comment"># subscribes compressed image</span></span><br><span class="line">    self.sub_image_original = rospy.Subscriber(<span class="string">'/detect/image_input/compressed'</span>, CompressedImage,</span><br><span class="line">                                               self.cbGetImage, queue_size=<span class="number">1</span>)</span><br><span class="line"><span class="keyword">elif</span> self.sub_image_type == <span class="string">"raw"</span>:</span><br><span class="line">    <span class="comment"># subscribes raw image</span></span><br><span class="line">    self.sub_image_original = rospy.Subscriber(<span class="string">'/camera/image_compensated'</span>, Image, self.cbGetImage, queue_size=<span class="number">1</span>)</span><br><span class="line">self.sub_traffic_light_finished = rospy.Subscriber(<span class="string">'/control/traffic_light_finished'</span>, UInt8,</span><br><span class="line">                                            self.cbTrafficLightFinished, queue_size=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="发布话题"><a href="#发布话题" class="headerlink" title="发布话题"></a>发布话题</h1><p>发布检测到的红黄绿三色信号灯信息<code>/detect/image_output_sub</code>、检测开始信号<code>/control/traffic_light_start</code>、检测状态信号<code>/detect/traffic_light_stamped</code>以及速度控制信号<code>/control/max_vel</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> self.pub_image_type == <span class="string">"compressed"</span>:</span><br><span class="line">     <span class="comment"># publishes compensated image in compressed type</span></span><br><span class="line">     self.pub_image_traffic_light = rospy.Publisher(<span class="string">'/detect/image_output/compressed'</span>, CompressedImage,</span><br><span class="line">                                                    queue_size=<span class="number">1</span>)</span><br><span class="line"> <span class="keyword">elif</span> self.pub_image_type == <span class="string">"raw"</span>:</span><br><span class="line">     <span class="comment"># publishes compensated image in raw type</span></span><br><span class="line">     self.pub_image_traffic_light = rospy.Publisher(<span class="string">'/detect/image_output'</span>, Image, queue_size=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> self.is_calibration_mode == <span class="literal">True</span>:</span><br><span class="line">     <span class="keyword">if</span> self.pub_image_type == <span class="string">"compressed"</span>:</span><br><span class="line">         <span class="comment"># publishes light image in compressed type</span></span><br><span class="line">         self.pub_image_red_light = rospy.Publisher(<span class="string">'/detect/image_output_sub1/compressed'</span>, CompressedImage,</span><br><span class="line">                                                    queue_size=<span class="number">1</span>)</span><br><span class="line">         self.pub_image_yellow_light = rospy.Publisher(<span class="string">'/detect/image_output_sub2/compressed'</span>, CompressedImage,</span><br><span class="line">                                                       queue_size=<span class="number">1</span>)</span><br><span class="line">         self.pub_image_green_light = rospy.Publisher(<span class="string">'/detect/image_output_sub3/compressed'</span>, CompressedImage,</span><br><span class="line">                                                      queue_size=<span class="number">1</span>)</span><br><span class="line">     <span class="keyword">elif</span> self.pub_image_type == <span class="string">"raw"</span>:</span><br><span class="line">         <span class="comment"># publishes light image in raw type</span></span><br><span class="line">         self.pub_image_red_light = rospy.Publisher(<span class="string">'/detect/image_output_sub1'</span>, Image, queue_size=<span class="number">1</span>)</span><br><span class="line">         self.pub_image_yellow_light = rospy.Publisher(<span class="string">'/detect/image_output_sub2'</span>, Image, queue_size=<span class="number">1</span>)</span><br><span class="line">         self.pub_image_green_light = rospy.Publisher(<span class="string">'/detect/image_output_sub3'</span>, Image, queue_size=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"> self.sub_traffic_light_finished = rospy.Subscriber(<span class="string">'/control/traffic_light_finished'</span>, UInt8,</span><br><span class="line">                                                    self.cbTrafficLightFinished, queue_size=<span class="number">1</span>)</span><br><span class="line"> self.pub_traffic_light_return = rospy.Publisher(<span class="string">'/detect/traffic_light_stamped'</span>, UInt8, queue_size=<span class="number">1</span>)</span><br><span class="line"> self.pub_parking_start = rospy.Publisher(<span class="string">'/control/traffic_light_start'</span>, UInt8, queue_size=<span class="number">1</span>)</span><br><span class="line"> self.pub_max_vel = rospy.Publisher(<span class="string">'/control/max_vel'</span>, Float64, queue_size=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="设定检测状态"><a href="#设定检测状态" class="headerlink" title="设定检测状态"></a>设定检测状态</h1><p>这里我们利用python的枚举操作将信号灯检测封装为几个不同状态，根据不同状态特点我们对速度进行相应的控制。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">self.StepOfTrafficLight = Enum(&apos;StepOfTrafficLight&apos;,</span><br><span class="line">                               &apos;searching_traffic_light</span><br><span class="line">                                searching_green_light </span><br><span class="line">                                searching_yellow_light </span><br><span class="line">                                searching_red_light </span><br><span class="line">                                waiting_green_light </span><br><span class="line">                                pass_traffic_light&apos;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="设定颜色阈值"><a href="#设定颜色阈值" class="headerlink" title="设定颜色阈值"></a>设定颜色阈值</h1><p>对红黄绿三色信号灯设定HSL阈值范围，用以对掩膜后的图像进行信号灯的颜色提取，可通过将提取的图像打印到屏幕上以便调整阈值范围。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">self.hue_red_l = rospy.get_param(<span class="string">"~detect/lane/red/hue_l"</span>, <span class="number">0</span>)</span><br><span class="line">self.hue_red_h = rospy.get_param(<span class="string">"~detect/lane/red/hue_h"</span>, <span class="number">10</span>)</span><br><span class="line">self.saturation_red_l = rospy.get_param(<span class="string">"~detect/lane/red/saturation_l"</span>, <span class="number">30</span>)</span><br><span class="line">self.saturation_red_h = rospy.get_param(<span class="string">"~detect/lane/red/saturation_h"</span>, <span class="number">255</span>)</span><br><span class="line">self.lightness_red_l = rospy.get_param(<span class="string">"~detect/lane/red/lightness_l"</span>, <span class="number">48</span>)</span><br><span class="line">self.lightness_red_h = rospy.get_param(<span class="string">"~detect/lane/red/lightness_h"</span>, <span class="number">255</span>)</span><br><span class="line"></span><br><span class="line">self.hue_yellow_l = rospy.get_param(<span class="string">"~detect/lane/yellow/hue_l"</span>, <span class="number">20</span>)</span><br><span class="line">self.hue_yellow_h = rospy.get_param(<span class="string">"~detect/lane/yellow/hue_h"</span>, <span class="number">35</span>)</span><br><span class="line">self.saturation_yellow_l = rospy.get_param(<span class="string">"~detect/lane/yellow/saturation_l"</span>, <span class="number">100</span>)</span><br><span class="line">self.saturation_yellow_h = rospy.get_param(<span class="string">"~detect/lane/yellow/saturation_h"</span>, <span class="number">255</span>)</span><br><span class="line">self.lightness_yellow_l = rospy.get_param(<span class="string">"~detect/lane/yellow/lightness_l"</span>, <span class="number">50</span>)</span><br><span class="line">self.lightness_yellow_h = rospy.get_param(<span class="string">"~detect/lane/yellow/lightness_h"</span>, <span class="number">255</span>)</span><br><span class="line"></span><br><span class="line">self.hue_green_l = rospy.get_param(<span class="string">"~detect/lane/green/hue_l"</span>, <span class="number">46</span>)</span><br><span class="line">self.hue_green_h = rospy.get_param(<span class="string">"~detect/lane/green/hue_h"</span>, <span class="number">76</span>)</span><br><span class="line">self.saturation_green_l = rospy.get_param(<span class="string">"~detect/lane/green/saturation_l"</span>, <span class="number">86</span>)</span><br><span class="line">self.saturation_green_h = rospy.get_param(<span class="string">"~detect/lane/green/saturation_h"</span>, <span class="number">255</span>)</span><br><span class="line">self.lightness_green_l = rospy.get_param(<span class="string">"~detect/lane/green/lightness_l"</span>, <span class="number">50</span>)</span><br><span class="line">self.lightness_green_h = rospy.get_param(<span class="string">"~detect/lane/green/lightness_h"</span>, <span class="number">255</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h1><p>视频格式是一帧一帧的图像信息，想要对每一帧图像进行处理就要先设置订阅图像的帧速率，根据计算机处理性能来设定帧速率，这里我们设置成10fps。将订阅到图像信息的格式转换成OpenCV库能够处理的格式。代码封装如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cbGetImage</span><span class="params">(self, image_msg)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> self.counter % <span class="number">3</span> != <span class="number">0</span>:</span><br><span class="line">        self.counter += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        self.counter = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> self.sub_image_type == <span class="string">"compressed"</span>:</span><br><span class="line">        np_arr = np.fromstring(image_msg.data, np.uint8)</span><br><span class="line">        self.cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        self.cv_image = self.cvBridge.imgmsg_to_cv2(image_msg, <span class="string">"bgr8"</span>)</span><br><span class="line"></span><br><span class="line">    self.is_image_available = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<h1 id="信号灯提取"><a href="#信号灯提取" class="headerlink" title="信号灯提取"></a>信号灯提取</h1><p>同<a href="https://sun-coke.github.io/2019/04/21/Launch%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99%E6%8A%80%E5%B7%A7/#more" target="_blank" rel="noopener">《TB3_Autorace之车道线检测》</a>中采用的方法一样，利用颜色阈值对颜色进行提取，返回掩膜之后的图像。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fnMaskRedTrafficLight</span><span class="params">(self)</span>:</span></span><br><span class="line">    image = np.copy(self.cv_image)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Convert BGR to HSV</span></span><br><span class="line">    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)</span><br><span class="line"></span><br><span class="line">    Hue_l = self.hue_red_l</span><br><span class="line">    Hue_h = self.hue_red_h</span><br><span class="line">    Saturation_l = self.saturation_red_l</span><br><span class="line">    Saturation_h = self.saturation_red_h</span><br><span class="line">    Lightness_l = self.lightness_red_l</span><br><span class="line">    Lightness_h = self.lightness_red_h</span><br><span class="line"></span><br><span class="line">    <span class="comment"># define range of red color in HSV</span></span><br><span class="line">    lower_red = np.array([Hue_l, Saturation_l, Lightness_l])</span><br><span class="line">    upper_red = np.array([Hue_h, Saturation_h, Lightness_h])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Threshold the HSV image to get only red colors</span></span><br><span class="line">    mask = cv2.inRange(hsv, lower_red, upper_red)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Bitwise-AND mask and original image</span></span><br><span class="line">    res = cv2.bitwise_and(image, image, mask=mask)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> self.is_calibration_mode == <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">if</span> self.pub_image_type == <span class="string">"compressed"</span>:</span><br><span class="line">            <span class="comment"># publishes red light filtered image in compressed type</span></span><br><span class="line">            self.pub_image_red_light.publish(self.cvBridge.cv2_to_compressed_imgmsg(mask, <span class="string">"jpg"</span>))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">elif</span> self.pub_image_type == <span class="string">"raw"</span>:</span><br><span class="line">            <span class="comment"># publishes red light filtered image in raw type</span></span><br><span class="line">            self.pub_image_red_light.publish(self.cvBridge.cv2_to_imgmsg(mask, <span class="string">"mono8"</span>))</span><br><span class="line"></span><br><span class="line">    mask = cv2.bitwise_not(mask)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> mask</span><br></pre></td></tr></table></figure>
+<p><img src="/自动驾驶/TB3-Autorace之信号灯检测/1.png" alt="1"></p>
+<h1 id="信号灯检测"><a href="#信号灯检测" class="headerlink" title="信号灯检测"></a>信号灯检测</h1><p>利用OpenCV库集成的cv2.SimpleBlobDetector斑点检测器对图像中的信号灯状态进行检测。Blob分析(Blob Analysis)是对图像中相同像素的连通域进行分析，该连通域称为Blob。Blob分析可为机器视觉应用提供图像中的斑点的数量、位置、形状和方向等信息。<br>该算法通过参数创建过滤器过滤斑点：通过像素阈值过滤；通过斑点面积过滤；通过圆性（4×pi×area/perimeter**2）过滤;通过凸性(斑点面积/斑点凸包面积)过滤;通过惯性比（Inertia Ratio）过滤，一个形状有多长（圆1,椭圆0-1.直线0）对信号灯进行检测，将检测出的斑点用红色圆包围标识，根据距离信号灯的远近设定区域范围，求出斑点中心坐标，根据斑点是否在设定范围内以及信号灯颜色来指定5个状态status，进而实现减速、停车动作。返回状态编号。代码封装如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fnFindCircleOfTrafficLight</span><span class="params">(self, mask, find_color)</span>:</span></span><br><span class="line"></span><br><span class="line">    status = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    params = cv2.SimpleBlobDetector_Params()</span><br><span class="line">    <span class="comment"># Change thresholds</span></span><br><span class="line">    params.minThreshold = <span class="number">0</span></span><br><span class="line">    params.maxThreshold = <span class="number">255</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Filter by Area.</span></span><br><span class="line">    params.filterByArea = <span class="literal">True</span></span><br><span class="line">    params.minArea = <span class="number">50</span></span><br><span class="line">    params.maxArea = <span class="number">600</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Filter by Circularity</span></span><br><span class="line">    params.filterByCircularity = <span class="literal">True</span></span><br><span class="line">    params.minCircularity = <span class="number">0.6</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Filter by Convexity</span></span><br><span class="line">    params.filterByConvexity = <span class="literal">True</span></span><br><span class="line">    params.minConvexity = <span class="number">0.6</span></span><br><span class="line"></span><br><span class="line">    det = cv2.SimpleBlobDetector_create(params)</span><br><span class="line">    keypts = det.detect(mask)</span><br><span class="line">    frame = cv2.drawKeypoints(self.cv_image, keypts, np.array([]), (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>),</span><br><span class="line">                              cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)</span><br><span class="line">    col1 = <span class="number">180</span></span><br><span class="line">    col2 = <span class="number">270</span></span><br><span class="line">    col3 = <span class="number">305</span></span><br><span class="line"></span><br><span class="line">    row1 = <span class="number">50</span></span><br><span class="line">    row2 = <span class="number">170</span></span><br><span class="line">    row3 = <span class="number">170</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(keypts)):</span><br><span class="line">        self.point_col = int(keypts[i].pt[<span class="number">0</span>])</span><br><span class="line">        self.point_row = int(keypts[i].pt[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">        print(self.point_col, self.point_row)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.point_col &gt; col1 <span class="keyword">and</span> self.point_col &lt; col2 <span class="keyword">and</span> self.point_row &gt; row1 <span class="keyword">and</span> self.point_row &lt; row2:</span><br><span class="line">            <span class="keyword">if</span> find_color == <span class="string">'green'</span>:</span><br><span class="line">                status = <span class="number">1</span></span><br><span class="line">            <span class="keyword">elif</span> find_color == <span class="string">'yellow'</span>:</span><br><span class="line">                status = <span class="number">2</span></span><br><span class="line">            <span class="keyword">elif</span> find_color == <span class="string">'red'</span>:</span><br><span class="line">                status = <span class="number">3</span></span><br><span class="line">        <span class="keyword">elif</span> self.point_col &gt; col2 <span class="keyword">and</span> self.point_col &lt; col3 <span class="keyword">and</span> self.point_row &gt; row1 <span class="keyword">and</span> self.point_row &lt; row3:</span><br><span class="line">            <span class="keyword">if</span> find_color == <span class="string">'red'</span>:</span><br><span class="line">                status = <span class="number">4</span></span><br><span class="line">            <span class="keyword">elif</span> find_color == <span class="string">'green'</span>:</span><br><span class="line">                status = <span class="number">5</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            status = <span class="number">6</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> status</span><br></pre></td></tr></table></figure>
+<p><img src="/自动驾驶/TB3-Autorace之信号灯检测/2.png" alt="2"></p>
+<h1 id="运动控制"><a href="#运动控制" class="headerlink" title="运动控制"></a>运动控制</h1><p>将掩膜后的图像进行高斯滤波处理，对于检测绿色信号灯，绿色计数加1；检测黄色信号灯，黄色计数加1；检测红色信号灯，较远距离，红色计数加1,较近距离，停止计数加1(为了避免急停，将检测红灯分为远近两种状态)。根据各个状态计数值，发布max_vel速度控制命令,控制小车根据信号灯指示运动。代码封装如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">cv_image_mask = self.fnMaskGreenTrafficLight()</span><br><span class="line">  cv_image_mask = cv2.GaussianBlur(cv_image_mask, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">  status1 = self.fnFindCircleOfTrafficLight(cv_image_mask, <span class="string">'green'</span>)</span><br><span class="line">  <span class="keyword">if</span> status1 == <span class="number">1</span> <span class="keyword">or</span> status1 == <span class="number">5</span>:</span><br><span class="line">      self.stop_count = <span class="number">0</span></span><br><span class="line">      self.green_count += <span class="number">1</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">      self.green_count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">      cv_image_mask = self.fnMaskYellowTrafficLight()</span><br><span class="line">      cv_image_mask = cv2.GaussianBlur(cv_image_mask, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">      status2 = self.fnFindCircleOfTrafficLight(cv_image_mask, <span class="string">'yellow'</span>)</span><br><span class="line">      <span class="keyword">if</span> status2 == <span class="number">2</span>:</span><br><span class="line">          self.yellow_count += <span class="number">1</span></span><br><span class="line">      <span class="keyword">else</span>:</span><br><span class="line">          self.yellow_count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">          cv_image_mask = self.fnMaskRedTrafficLight()</span><br><span class="line">          cv_image_mask = cv2.GaussianBlur(cv_image_mask, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">          status3 = self.fnFindCircleOfTrafficLight(cv_image_mask, <span class="string">'red'</span>)</span><br><span class="line">          <span class="keyword">if</span> status3 == <span class="number">3</span>:</span><br><span class="line">              self.red_count += <span class="number">1</span></span><br><span class="line">          <span class="keyword">elif</span> status3 == <span class="number">4</span>:</span><br><span class="line">              self.red_count = <span class="number">0</span></span><br><span class="line">              self.stop_count += <span class="number">1</span></span><br><span class="line">          <span class="keyword">else</span>:</span><br><span class="line">              self.red_count = <span class="number">0</span></span><br><span class="line">              self.stop_count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> self.green_count &gt; <span class="number">20</span>:</span><br><span class="line">      msg_pub_max_vel = Float64()</span><br><span class="line">      msg_pub_max_vel.data = <span class="number">0.12</span></span><br><span class="line">      self.pub_max_vel.publish(msg_pub_max_vel)</span><br><span class="line">      rospy.loginfo(<span class="string">"GREEN"</span>)</span><br><span class="line">      cv2.putText(self.cv_image, <span class="string">"GREEN"</span>, (self.point_col, self.point_row), cv2.FONT_HERSHEY_DUPLEX, <span class="number">0.5</span>,</span><br><span class="line">                  (<span class="number">80</span>, <span class="number">255</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> self.yellow_count &gt; <span class="number">12</span>:</span><br><span class="line">      msg_pub_max_vel = Float64()</span><br><span class="line">      msg_pub_max_vel.data = <span class="number">0.06</span> <span class="keyword">if</span> <span class="keyword">not</span> self.off_traffic <span class="keyword">else</span> <span class="number">0.12</span></span><br><span class="line">      self.pub_max_vel.publish(msg_pub_max_vel)</span><br><span class="line">      rospy.loginfo(<span class="string">"YELLOW"</span>)</span><br><span class="line">      cv2.putText(self.cv_image, <span class="string">"YELLOW"</span>, (self.point_col, self.point_row), cv2.FONT_HERSHEY_DUPLEX, <span class="number">0.5</span>,</span><br><span class="line">                  (<span class="number">0</span>, <span class="number">255</span>, <span class="number">255</span>))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> self.red_count &gt; <span class="number">8</span>:</span><br><span class="line">      msg_pub_max_vel = Float64()</span><br><span class="line">      msg_pub_max_vel.data = <span class="number">0.03</span></span><br><span class="line">      self.pub_max_vel.publish(msg_pub_max_vel)</span><br><span class="line">      rospy.loginfo(<span class="string">"RED"</span>)</span><br><span class="line">      cv2.putText(self.cv_image, <span class="string">"RED"</span>, (self.point_col, self.point_row), cv2.FONT_HERSHEY_DUPLEX, <span class="number">0.5</span>,</span><br><span class="line">                  (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> self.stop_count &gt; <span class="number">8</span>:</span><br><span class="line">      msg_pub_max_vel = Float64()</span><br><span class="line">      msg_pub_max_vel.data = <span class="number">0.0</span></span><br><span class="line">      self.pub_max_vel.publish(msg_pub_max_vel)</span><br><span class="line">      rospy.loginfo(<span class="string">"STOP"</span>)</span><br><span class="line">      self.off_traffic = <span class="literal">True</span></span><br><span class="line">      cv2.putText(self.cv_image, <span class="string">"STOP"</span>, (self.point_col, self.point_row), cv2.FONT_HERSHEY_DUPLEX, <span class="number">0.5</span>,</span><br><span class="line">                  (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="/自动驾驶/TB3-Autorace之信号灯检测/3.png" alt="3"><br>至此，已完成所有信号灯检测工作。实现控制TB3机器人根据信号灯指示完成起停动作。</p>
+<h1 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h1><p>1.blob算法还可以添加通过惯性比（Inertia Ratio）检测因子进行过滤，缺点是处理速度过慢，要对整个区域作逐点扫描。<br>2.在利用cv2.SimpleBlobDetector检测器对信号灯进行检测之前要对图像进行取反工作，突出斑点。<br>3.接收图像信息的帧速率要根据主机性能进行设置，切勿设置过慢导致漏帧现象发生。</p>
+<h1 id="附"><a href="#附" class="headerlink" title="附"></a>附</h1><p>完整程序源代码：<a href="https://github.com/sun-coke/TB3_Autorace" target="_blank" rel="noopener">https://github.com/sun-coke/TB3_Autorace</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      
+    <div>
+      
+        <div> 
+    
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束  <i class="fa fa-heart" style="font-size:12px"></i>  感谢阅读-------------</div> 
+    
+</div>
+
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ROS/" rel="tag"><i class="fa fa-tag"></i>ROS</a> 
+          
+            <a href="/tags/自动驾驶/" rel="tag"><i class="fa fa-tag"></i>自动驾驶</a> 
+          
+            <a href="/tags/TB3/" rel="tag"><i class="fa fa-tag"></i>TB3</a> 
+          
+            <a href="/tags/OpenCV/" rel="tag"><i class="fa fa-tag"></i>OpenCV</a> 
+          
+            <a href="/tags/代码分享/" rel="tag"><i class="fa fa-tag"></i>代码分享</a> 
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/自动驾驶/TB3-Autorace之车道线检测/" rel="next" title="TB3_Autorace之车道线检测">
+                <i class="fa fa-chevron-left"></i> TB3_Autorace之车道线检测
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/自动驾驶/TB3-Autorace之路标检测/" rel="prev" title="TB3_Autorace之路标检测">
+                TB3_Autorace之路标检测 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDUwMy8yMTAzNA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Steven Suen">
+          <p class="site-author-name" itemprop="name">Steven Suen</p>
+           
+              <p class="site-description motion-element" itemprop="description">普通的开发者，热情的学习者</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sun-coke" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="sun_db@hust.edu.cn" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ros.org/" title="ROS wiki" target="_blank">ROS wiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.guyuehome.com/" title="古月居" target="_blank">古月居</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.ncnynl.com/" title="创客智造" target="_blank">创客智造</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.exbot.net/" title="ROS星火计划" target="_blank">ROS星火计划</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://emanual.robotis.com/" title="ROBOTIS" target="_blank">ROBOTIS</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://apollo.auto/" title="apollo" target="_blank">apollo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.voidcc.com/" title="开发小院" target="_blank">开发小院</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#订阅话题"><span class="nav-number">1.</span> <span class="nav-text">订阅话题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#发布话题"><span class="nav-number">2.</span> <span class="nav-text">发布话题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设定检测状态"><span class="nav-number">3.</span> <span class="nav-text">设定检测状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设定颜色阈值"><span class="nav-number">4.</span> <span class="nav-text">设定颜色阈值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#格式转换"><span class="nav-number">5.</span> <span class="nav-text">格式转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信号灯提取"><span class="nav-number">6.</span> <span class="nav-text">信号灯提取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信号灯检测"><span class="nav-number">7.</span> <span class="nav-text">信号灯检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运动控制"><span class="nav-number">8.</span> <span class="nav-text">运动控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#经验分享"><span class="nav-number">9.</span> <span class="nav-text">经验分享</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附"><span class="nav-number">10.</span> <span class="nav-text">附</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Steven Suen</span>
+</div>
+
+<!--
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+-->
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> <script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("04/01/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站总访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</body>
+</html>

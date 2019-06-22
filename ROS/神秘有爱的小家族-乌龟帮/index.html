@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ROS,知识总结,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="ROS为何以乌龟形象示人，五花八门的乌龟logo背后都有哪些有趣的故事？">
+<meta name="keywords" content="ROS,知识总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="神秘有爱的小家族--乌龟帮">
+<meta property="og:url" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/index.html">
+<meta property="og:site_name" content="Steven&#39;s Station">
+<meta property="og:description" content="ROS为何以乌龟形象示人，五花八门的乌龟logo背后都有哪些有趣的故事？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/封页.jpeg">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/海龟机器人.jpg">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/壁纸.png">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/乔许·埃林森.jpg">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/思特菲·派姬.jpg">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/B.png">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/C.jpg">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/Diamondback.jpg">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/Electric.jpg">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/fuerte.jpg">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/groovy.jpg">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/Hydro.jpg">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/indigo.png">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/jade.png">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/kinetic.png">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/lunar.png">
+<meta property="og:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/melodic.jpg">
+<meta property="og:updated_time" content="2019-06-01T12:57:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="神秘有爱的小家族--乌龟帮">
+<meta name="twitter:description" content="ROS为何以乌龟形象示人，五花八门的乌龟logo背后都有哪些有趣的故事？">
+<meta name="twitter:image" content="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/封页.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/">
+
+
+
+
+
+  <title>神秘有爱的小家族--乌龟帮 | Steven's Station</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <a href="https://github.com/sun-coke" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Steven's Station</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不能一招制敌，那就脚踏实地</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/ROS/神秘有爱的小家族-乌龟帮/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steven Suen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Steven's Station">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">神秘有爱的小家族--乌龟帮</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T19:48:28+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+    
+
+      
+      
+
+      
+        <p>ROS为何以乌龟形象示人，五花八门的乌龟logo背后都有哪些有趣的故事？<br><img src="/ROS/神秘有爱的小家族-乌龟帮/封页.jpeg" alt="封页"></p>
+<a id="more"></a>
+<h1 id="Why-Turtle？："><a href="#Why-Turtle？：" class="headerlink" title="Why Turtle？："></a>Why Turtle？：</h1><p>每一个ROS版本的发布，都伴随着一个新的乌龟吉祥物和小图标。<br>在英语中，表示“龟”有两个词，一是Tortoise，二是Turtle。Tortoise指陆上生长的乌龟，Turtle泛指各种乌龟，陆生的和海里的。<br>车库公司的创始人和早期员工都是软件工程师，他们很小的时候就开始学习编程。那时他们用的是Logo语言，一种面向儿童的计算机程式设计语言。为了让编程更容易理解，更有趣，美国施乐公司帕克研究中心（Xerox PARC）开发了一款机器人，背上背了一个半圆形盖子，可以在地板上缓慢运动，大家给这个机器人起了一个非常形象的名字——“乌龟”。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/海龟机器人.jpg" alt="海龟机器人"></p>
+<hr>
+<h1 id="五花八门的命名："><a href="#五花八门的命名：" class="headerlink" title="五花八门的命名："></a>五花八门的命名：</h1><p>2009年初推出的ROS0.4内测版已初具ROS框架雏形。经过近一年的测试后，于2010年初推出了ROS1.0版，并在当年三月份推出了正式发行版本：ROS Box Turtle。<br>我们现在看到ROS的每一个版本是按照字母顺序依次命名。比如轮到 B，就起名 Box Turtle，C 是 C Turtle，D 是 Diamondback。而且相应的单词还要跟乌龟有关。<br>从E版本开始，ROS的命名就试图借鉴Ubuntu的命名方法，一个形容词+一种乌龟名。形容词和乌龟名的首字母要跟代表版本的字母一样。比如E版本是Electric Emys（电动+泽龟）来表示。<br>前面几个版本的名字是车库内部取得。到后来，车库，及OSRF也不知道如何取名，就成立了一个ROS起名委员会(瓦特！)，征求大家的意见。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/壁纸.png" alt="壁纸"></p>
+<hr>
+<h1 id="乌龟吉祥物设计师："><a href="#乌龟吉祥物设计师：" class="headerlink" title="乌龟吉祥物设计师："></a>乌龟吉祥物设计师：</h1><p>除了第一个乌龟，其他吉祥物都是由乔许·埃林森（Josh Ellingson）设计。乔许·埃林森是一位自由艺术家，为不同的商业活动设计宣传材料。<br>2010年，车库带着PR2第一次参加了RoboGames（俗称机器人奥运会），乔许·埃林森为车库设计了第一张海报。在此之前，乔许·埃林森为RoboGames设计过海报已小有名气。风格也非常符合车库的口味，后来车库大大小小的海报，宣传美工就由乔许·埃林森负责了。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/乔许·埃林森.jpg" alt="乔许·埃林森"></p>
+<hr>
+<h1 id="乌龟图标设计师："><a href="#乌龟图标设计师：" class="headerlink" title="乌龟图标设计师："></a>乌龟图标设计师：</h1><p>每个ROS版本发布，Turtlesim里的乌龟图标也会变化，这些乌龟图标则是由思特菲·派姬（Steffi Paepcke）设计的。每一个小图标都跟乔许·埃林森设计的乌龟吉祥物相关联，颜色，风格，主题保持一致。<br>思特菲·派姬2009年以实习生的身份进入车库，正是在车库实习期间，思特菲·派姬第一次见到了正真的机器人-PR2，觉得有趣极了。思特菲·派姬在斯坦福大学主修心理学。这促使她考虑如何将自己的专业心理学和机器人相结合。实习结束，特菲·派姬马上去了卡内选择了人机交互方向读研究生。毕业后，又回到车库，后来，又作为联合创始人创建了开源基·梅陇大学继续深造，在机器人基金会（OSRF）里领导人机交互组。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/思特菲·派姬.jpg" alt="思特菲·派姬"></p>
+<hr>
+<h1 id="乌龟家族"><a href="#乌龟家族" class="headerlink" title="乌龟家族"></a>乌龟家族</h1><h2 id="阿B龟："><a href="#阿B龟：" class="headerlink" title="阿B龟："></a>阿B龟：</h2><p>车库在2010年初完成了ROS1.0版，并在当年三月份推出，并将这个正式发行版本命名为ROS Box Turtle（箱龟）。这是ROS的第一个对外发行的版本。发布的时候，车库设计了第一只乌龟。当然这只乌龟实在没什么创意，那完全就是抄袭Logo的乌龟。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/B.png" alt="B"></p>
+<p>这时，ROS的软件包以Stack的形式组织在一起，这个版本共有3大类软件包，被封装在60多个Stack中。这3大类软件包括：bas, pr2, pr2all。<br>&diams;base：机器人通用的软件包，如初学者比较容易接触到的navigation，visualization等。<br>&diams; pr2：为PR2机器人设计的软件包。<br>&diams; pr2all：所有为测试PR2机器人设计的各类软件包。</p>
+<h2 id="阿C龟："><a href="#阿C龟：" class="headerlink" title="阿C龟："></a>阿C龟：</h2><p>这是ROS的C版本C Turtle，如果延续这种命名方式，我们看到的后续的版本将会是D Turtle， E Turtle，…。<br>后来很长时间，还有人抱怨这个版本的名字太缺乏想象力了，总想给她换个名字。可是，ROS的发展速度太快了,这件事也自然是不了了之了。<br>前面提到，从这个版本开始，车库聘请了乔许·埃林森来设计乌龟吉祥物。这时的乔许·埃林森，跟大多数机器人爱好者一样，颇受好莱坞电影故事的影响，在乔许·埃林森眼里，未来似乎并不美好。大海龟就像一只诺亚方舟，在大灾难来临之际，带领大家逃离灾难重重的大陆，寻找一片新世界。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/C.jpg" alt="C"></p>
+<p>C版本的改进：<br>&diams; 增加了针对PR2机器人抓取的软件包<br>&diams; 主要支持Ubuntu的H/I/J/K版本（8.04/8.10/9.04/9.10）。<br>&diams; 支持C++03，Boost 1.37，Lisp SBCL 1.0.38，Python 2.5<br>&diams; 尝试将catkin编译系统引进ROS，但因为不稳定，还不建议使用。</p>
+<h2 id="菱背龟："><a href="#菱背龟：" class="headerlink" title="菱背龟："></a>菱背龟：</h2><p>D版本的吉祥物是Diamondback（菱背龟，背部有菱形图案）。在菱形风筝的助力下，无数只菱背龟在空中自由地飞翔。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/Diamondback.jpg" alt="Diamondback"></p>
+<p>D版本的改进：<br>&diams; 在这个版本里增加了对Kinect的支持。<br>&diams; 模块化的粒度更小，有利于增量化更新。<br>&diams; 图形用户界面从ROS核心中分离出来，可供用户选择。<br>&diams; 修改版权和软件归属权的条例。<br>&diams; 创建了ROS问答社区，方便用户交流。</p>
+<h2 id="鸡血龟："><a href="#鸡血龟：" class="headerlink" title="鸡血龟："></a>鸡血龟：</h2><p>E版本的吉祥物是ElectricEmys（鸡血泽龟），一个风风火火、打了鸡血的泽龟。“小模块，轻量化”是前一个版本的宗旨， E版本依然为此努力。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/Electric.jpg" alt="Electric"></p>
+<p>E版本的改进：<br>&diams; 把ROS底层的库进一步分离成单独的模块，如KDL（运动学-动力学库）、 nodelet、 filters、 xacro、pluginlib。<br>&diams; 不需要集中维护，每个ROS贡献者可以自行维护各自写的模块。</p>
+<h2 id="大力神龟："><a href="#大力神龟：" class="headerlink" title="大力神龟："></a>大力神龟：</h2><p>F版本的吉祥物是Fuerte Turtle（大力神龟），因为没有以F开头的乌龟物种，就只能用通用的乌龟（Turtle）了。Fuerte为西班牙语，表示强壮有力。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/fuerte.jpg" alt="fuerte"></p>
+<p>F版本的改进：<br>&diams; 主要适用于Ubuntu的L/O/P版本（10.04/11.10/12.04 LTS）。<br>&diams; 支持C++03，Boost 1.40，Lisp SBCL 1.0.x，Python 2.6<br>&diams; 尝试将catkin编译系统引进ROS，但因为不稳定，还不建议使用。<br>&diams; 用Qt重写了rviz<br>&diams; 发布PCL 1.5，性能进一步提高。<br>&diams; 发布Gazebo 1.0。</p>
+<h2 id="拉风龟："><a href="#拉风龟：" class="headerlink" title="拉风龟："></a>拉风龟：</h2><p>G版本的吉祥物是Groovy Galapagos，一只非常拉风的加拉帕戈斯象龟。长发、墨镜、拖拉板、花裤衩、背着汽车流浪天涯的时尚加拉帕戈斯象龟。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/groovy.jpg" alt="groovy"></p>
+<p>G版本的改进：<br>&diams; 正式将catkin编译系统引进ROS，希望能替代原有的编译系统rosbuild。<br>&diams; 主要适用于Ubuntu的O/P/Q版本（11.10/12.04 LTS/12.10）。<br>&diams; 支持C++03，Boost 1.46，Lisp SBCL 1.0.x，Python 2.7，CMake 2.8.3<br>&diams; Stack的概念被废弃,只保留软件包的概念，可以让模块的粒度更小。<br>&diams; 将代码转移到Github。<br>&diams; 引入图形用户界面工具rqt。<br>&diams; 开发环境从Wx变为Qt</p>
+<h2 id="蛇颈龟："><a href="#蛇颈龟：" class="headerlink" title="蛇颈龟："></a>蛇颈龟：</h2><p>H版本的吉祥物是长脖子的Hydromedusa（南美蛇颈龟）。Hydromedusa这个单词写起来有点长，在ROS中被分成两个词 Hydro Medusa。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/Hydro.jpg" alt="Hydro"></p>
+<p>H版本的改进：<br>&diams; 进一步让ROS支持catkin编译系统<br>&diams; 主要适用于Ubuntu的P/Q/R版本（12.04 LTS~13.04）。<br>&diams; 支持C++03，Boost 1.48，Lisp SBCL 1.0.x，Python 2.7<br>&diams; 对ROS里的一些工具也做了升级，如rviz 、rqt等。<br>&diams; 提高了ROS和Gazebo的集成度。</p>
+<h2 id="青色冰屋龟："><a href="#青色冰屋龟：" class="headerlink" title="青色冰屋龟："></a>青色冰屋龟：</h2><p>I版本的吉祥物是Indigo Igloo（意为，青色冰屋）。一开始，ROS命名委员会很多人建议用I, Turtle。主要源于大家都知道一本书叫《I，Robot》。还有人提议iTurtle，遭到很多人反对，多半源于对苹果公司全封闭系统的不满。最后大家选了一个不是乌龟的名词Igloo（冰屋），虽然不是乌龟，但外形像极似乌龟，大家都很喜欢。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/indigo.png" alt="indigo"></p>
+<p>I版本的改进：<br>&diams; 主要适用于Ubuntu的S/T版本（13.10/14.04 LTS）。<br>&diams; 支持C++03，Boost 1.53，Lisp SBCL 1.0.x，Python 2.7，CMake 2.8.11</p>
+<h2 id="翡翠龟："><a href="#翡翠龟：" class="headerlink" title="翡翠龟："></a>翡翠龟：</h2><p>J版本的吉祥物是Jade Turtle（翡翠龟）。上个版本取了个非乌龟的名字，这次又取了个“翡翠”，在东方文化里，经常把翡翠雕刻成乌龟的样子，寓意坚毅、持久。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/jade.png" alt="jade"></p>
+<p>J版本的改进:<br>&diams; 主要适用于Ubuntu的T/U/V版本（14.04/14.10/15.04）。<br>&diams; 支持C++03，Boost 1.54，Lisp SBCL 1.1.14，Python 2.7，CMake 2.8.12</p>
+<h2 id="动感神龟："><a href="#动感神龟：" class="headerlink" title="动感神龟："></a>动感神龟：</h2><p>K版本的吉祥物是 Kinetic Kame(动感神龟)。这次用了一个日语 Kame(在日语中是乌龟的意思)。Kinetic 则表现出能量和速度。因此大家看到的一只动感十足的超级龟。这个动感神龟身上加上“开源机器人基金会”的标志。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/kinetic.png" alt="kinetic"></p>
+<h2 id="太空龟："><a href="#太空龟：" class="headerlink" title="太空龟："></a>太空龟：</h2><p>L版本的吉祥物是 Lunar Loggerhead(太空龟)。一个登上月球,并把 ROS 的旗帜插上去的大头海龟。这时的 ROS 已经成为机器人领域的标准了。这个登月大头龟身上也加上“开源机器人基金会”的标志。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/lunar.png" alt="lunar"></p>
+<p>L版本的改进：<br>&diams; 主要适用于 Ubuntu 的 X/Y/X 版本(16.04/16.10/17.04), 增加了对其他 Linux 的支持,如 Debian S 版本,Fedora 26 版。<br>&diams; 支持的体系架构 amd64,arm32,arm64。<br>&diams; 支持 C++11 , Boost 1.58/61/62 , Lisp SBCL 1.2.4 , Python 2.7 , CMake3.5.1/3.5.2/3.7.2。</p>
+<h2 id="孔雀龟："><a href="#孔雀龟：" class="headerlink" title="孔雀龟："></a>孔雀龟：</h2><p>这是 ROS 2018年至今最新版本。M版本的吉祥物是 Melodic Morenia(优雅的孔雀龟)。三只孔雀龟,表演者优雅的乐曲,一只雌孔雀龟头顶上的羽翎。</p>
+<p><img src="/ROS/神秘有爱的小家族-乌龟帮/melodic.jpg" alt="melodic"></p>
+<hr>
+<p>至此，这就是我们乌龟帮的所有家族成员。相信在未来会有越来越多的新成员加入进来，也相信ROS能够越走越远！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      
+    <div>
+      
+        <div> 
+    
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束  <i class="fa fa-heart" style="font-size:12px"></i>  感谢阅读-------------</div> 
+    
+</div>
+
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ROS/" rel="tag"><i class="fa fa-tag"></i>ROS</a> 
+          
+            <a href="/tags/知识总结/" rel="tag"><i class="fa fa-tag"></i>知识总结</a> 
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ROS/ROS的前世今生（附良心学习资料）/" rel="next" title="ROS的前世今生（附良心学习资料）">
+                <i class="fa fa-chevron-left"></i> ROS的前世今生（附良心学习资料）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ROS/Launch文件编写技巧/" rel="prev" title="Launch文件编写技巧">
+                Launch文件编写技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDUwMy8yMTAzNA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Steven Suen">
+          <p class="site-author-name" itemprop="name">Steven Suen</p>
+           
+              <p class="site-description motion-element" itemprop="description">普通的开发者，热情的学习者</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sun-coke" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="sun_db@hust.edu.cn" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ros.org/" title="ROS wiki" target="_blank">ROS wiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.guyuehome.com/" title="古月居" target="_blank">古月居</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.ncnynl.com/" title="创客智造" target="_blank">创客智造</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.exbot.net/" title="ROS星火计划" target="_blank">ROS星火计划</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://emanual.robotis.com/" title="ROBOTIS" target="_blank">ROBOTIS</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://apollo.auto/" title="apollo" target="_blank">apollo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.voidcc.com/" title="开发小院" target="_blank">开发小院</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Why-Turtle？："><span class="nav-number">1.</span> <span class="nav-text">Why Turtle？：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五花八门的命名："><span class="nav-number">2.</span> <span class="nav-text">五花八门的命名：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#乌龟吉祥物设计师："><span class="nav-number">3.</span> <span class="nav-text">乌龟吉祥物设计师：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#乌龟图标设计师："><span class="nav-number">4.</span> <span class="nav-text">乌龟图标设计师：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#乌龟家族"><span class="nav-number">5.</span> <span class="nav-text">乌龟家族</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#阿B龟："><span class="nav-number">5.1.</span> <span class="nav-text">阿B龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阿C龟："><span class="nav-number">5.2.</span> <span class="nav-text">阿C龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#菱背龟："><span class="nav-number">5.3.</span> <span class="nav-text">菱背龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#鸡血龟："><span class="nav-number">5.4.</span> <span class="nav-text">鸡血龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大力神龟："><span class="nav-number">5.5.</span> <span class="nav-text">大力神龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉风龟："><span class="nav-number">5.6.</span> <span class="nav-text">拉风龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蛇颈龟："><span class="nav-number">5.7.</span> <span class="nav-text">蛇颈龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#青色冰屋龟："><span class="nav-number">5.8.</span> <span class="nav-text">青色冰屋龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翡翠龟："><span class="nav-number">5.9.</span> <span class="nav-text">翡翠龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动感神龟："><span class="nav-number">5.10.</span> <span class="nav-text">动感神龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#太空龟："><span class="nav-number">5.11.</span> <span class="nav-text">太空龟：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孔雀龟："><span class="nav-number">5.12.</span> <span class="nav-text">孔雀龟：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Steven Suen</span>
+</div>
+
+<!--
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+-->
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> <script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("04/01/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站总访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</body>
+</html>
