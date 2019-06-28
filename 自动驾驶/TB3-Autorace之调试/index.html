@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ROS,自动驾驶,TB3,OpenCV,代码分享,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="有关利用TB3实现自动驾驶任务时的参数调试注意事项及经验总结">
+<meta name="keywords" content="ROS,自动驾驶,TB3,OpenCV,代码分享">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TB3_Autorace之调试">
+<meta property="og:url" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/index.html">
+<meta property="og:site_name" content="Steven&#39;s Station">
+<meta property="og:description" content="有关利用TB3实现自动驾驶任务时的参数调试注意事项及经验总结">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/00.jpg">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/0.jpg">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/1.jpg">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/2.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/3.jpg">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/4.jpg">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/5.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/6.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/7.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/8.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/9.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/10.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/11.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/12.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/13.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/2.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/14.jpg">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/15.png">
+<meta property="og:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/16.jpg">
+<meta property="og:updated_time" content="2019-06-28T13:18:53.754Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TB3_Autorace之调试">
+<meta name="twitter:description" content="有关利用TB3实现自动驾驶任务时的参数调试注意事项及经验总结">
+<meta name="twitter:image" content="http://yoursite.com/自动驾驶/TB3-Autorace之调试/00.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/自动驾驶/TB3-Autorace之调试/">
+
+
+
+
+
+  <title>TB3_Autorace之调试 | Steven's Station</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <a href="https://github.com/sun-coke" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Steven's Station</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不能一招制敌，那就脚踏实地</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/自动驾驶/TB3-Autorace之调试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steven Suen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Steven's Station">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TB3_Autorace之调试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-07T18:24:17+08:00">
+                2019-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/自动驾驶/" itemprop="url" rel="index">
+                    <span itemprop="name">自动驾驶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+    
+
+      
+      
+
+      
+        <p>有关利用TB3实现自动驾驶任务时的参数调试注意事项及经验总结<br><img src="/自动驾驶/TB3-Autorace之调试/00.jpg" alt="00"><br><a id="more"></a></p>
+<blockquote class="blockquote-center"><p>上策存人<br>中策存物<br>下策存钱</p>
+</blockquote>
+<h1 id="TB3-Autorace-硬件要求"><a href="#TB3-Autorace-硬件要求" class="headerlink" title="TB3_Autorace-硬件要求"></a>TB3_Autorace-硬件要求</h1><h2 id="硬件配置"><a href="#硬件配置" class="headerlink" title="硬件配置:"></a>硬件配置:</h2><p>机器人:</p>
+<ul>
+<li>TurtleBot3 Burger<br>远程 PC:</li>
+<li>Remote PC (Laptop, Desktop, etc.)<br>辅助设备:</li>
+<li>鱼眼相机:Raspberry Pi Camera Type G</li>
+<li>相机固定架:Raspberry Pi Camera Mount<br>赛道结构和配件:</li>
+<li>裁判系统资源: <a href="https://github.com/ROBOTIS-GIT/autorace_referee" target="_blank" rel="noopener">https://github.com/ROBOTIS-GIT/autorace_referee</a></li>
+<li>CAD 模型: <a href="https://github.com/ROBOTIS-GIT/autorace_track" target="_blank" rel="noopener">https://github.com/ROBOTIS-GIT/autorace_track</a></li>
+</ul>
+<h1 id="TB3-Autorace-软件要求"><a href="#TB3-Autorace-软件要求" class="headerlink" title="TB3_Autorace-软件要求"></a>TB3_Autorace-软件要求</h1><h2 id="软件配置"><a href="#软件配置" class="headerlink" title="软件配置:"></a>软件配置:</h2><p>[Remote PC &amp; TurtleBot SBC] 安装依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install ros-kinetic-image-transport ros-kinetic-cv-bridge ros-kinetic-vision-opencv python-opencv</span><br><span class="line">libopencv-dev ros-kinetic-image-proc</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC &amp; TurtleBot SBC] 安装 autorace 包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/catkin_ws/src/</span><br><span class="line">$ git clone https://github.com/ROBOTIS-GIT/turtlebot3_autorace.git</span><br><span class="line">$ cd ~/catkin_ws &amp;&amp; catkin_make</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC &amp; TurtleBot SBC] 安装 raspicam_node<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/catkin_ws/src/</span><br><span class="line">$ git clone https://github.com/ncnynl/raspicam_node</span><br><span class="line">$ cd ~/catkin_ws &amp;&amp; catkin_make</span><br></pre></td></tr></table></figure></p>
+<h1 id="TB3-Autorace-场景搭建"><a href="#TB3-Autorace-场景搭建" class="headerlink" title="TB3_Autorace-场景搭建"></a>TB3_Autorace-场景搭建</h1><h2 id="场地要求："><a href="#场地要求：" class="headerlink" title="场地要求："></a>场地要求：</h2><ul>
+<li>由于 Turtlebot3 测试自动驾驶受环境光线影响较大,所以测试环境应该设置在室内,且尽量保证早 晚的环境光线保持一致</li>
+<li>场地应该采用深色平坦,不能太过光滑的背景,建议背景色为黑色</li>
+<li>下图是测试时搭建的场景</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/0.jpg" alt="0"></p>
+<h2 id="车道"><a href="#车道" class="headerlink" title="车道"></a>车道</h2><ul>
+<li>车道主要由两条车道线组成,基于机器人的位置判定,左边为黄色车道线,右边为白色车道线</li>
+<li>建议黄色车道线与白色车道线的距离设置为 25cm</li>
+<li>车道线的宽度为 2cm 或 3cm</li>
+<li>参考图</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/1.jpg" alt="1"></p>
+<h2 id="停车位"><a href="#停车位" class="headerlink" title="停车位"></a>停车位</h2><ul>
+<li>停车位上的停车虚线段长度在 2cm 或 3cm</li>
+<li>每两段停车虚线段之间的距离不适宜太远,要确保进行停车时,topic:/detect/image_parking 上 的摄像头检测到多个停车虚线段</li>
+<li>参考图</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/2.png" alt="2"></p>
+<h2 id="交通灯"><a href="#交通灯" class="headerlink" title="交通灯"></a>交通灯</h2><ul>
+<li>交通灯可以用红黄绿三种 LED 灯来代替,或者使用自行车青蛙灯</li>
+<li>参考图</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/3.jpg" alt="3"></p>
+<h2 id="交通杆"><a href="#交通杆" class="headerlink" title="交通杆"></a>交通杆</h2><ul>
+<li>交通杆的制作可以使用三片红色的纸片或丝带</li>
+<li>建议色块大小为长 4cm,宽 2cm,两色块相距 4cm</li>
+<li>交通杆应该放置在与摄像头水平的位置</li>
+<li>参考图</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/4.jpg" alt="4"></p>
+<h2 id="隧道"><a href="#隧道" class="headerlink" title="隧道"></a>隧道</h2><ul>
+<li>隧道入口和出口的宽度应该大于车道的宽度,大约为 30cm</li>
+<li>隧道可以使用木板或纸箱等高于 25cm 的物品围起来,只留出入口</li>
+<li>隧道出口一般设置在整个自动驾驶流程的起点处</li>
+<li>参考图</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/5.png" alt="5"></p>
+<h1 id="TB3-Autorace-图像校准"><a href="#TB3-Autorace-图像校准" class="headerlink" title="TB3_Autorace-图像校准"></a>TB3_Autorace-图像校准</h1><h2 id="操作步骤："><a href="#操作步骤：" class="headerlink" title="操作步骤："></a>操作步骤：</h2><p>[Remote PC] 新终端,启动 roscore<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动相机<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,浏览图像界面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rqt_image_view</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>选择 topic:/camera/image/compressed 或/camera/image/ 如果正常则可以看到图像</li>
+</ul>
+<p>[Remote PC] 新终端,打开配置界面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun rqt_reconfigure rqt_reconfigure</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>选择 camera,调整参数值,使相机显示干净,足够明亮的图像。</li>
+<li>之后,将每个值覆盖到树莓派上turtlebot3_autorace_camera/calibration/camera_calibration 文件夹中 camera.yaml里的参数值</li>
+<li>下次启动即会使用新的参数值,以达到更好的显示效果</li>
+<li>若不能正常载入参数,可以尝试修改树莓上的 raspicam_node/cfg 文件夹中的 Camera.cfg 内的参数值</li>
+<li>效果图</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/6.png" alt="6"></p>
+<h1 id="TB3-Autorace-相机内标定"><a href="#TB3-Autorace-相机内标定" class="headerlink" title="TB3_Autorace-相机内标定"></a>TB3_Autorace-相机内标定</h1><p>操作步骤<br>[Remote PC] 新终端,启动 roscore<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动摄像头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>将 PC 上的 turtlebot3_autorace_camera/data文件夹里的checkerboard_for_calibration.pdf 的内容打印到一张 A4 纸上</li>
+</ul>
+<p>[Remote PC] 根据打印出来的格子直径修改 turtlebot3_autorace_camera/launch文件夹里的turtlebot3_autorace_intrinsic_camera_calibration.launch 的–square 0.108<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;node if=&quot;$(eval calibration_mode == &apos;calibration&apos;)&quot; pkg=&quot;camera_calibration&quot; type=&quot;cameracalibrator.py&quot;</span><br><span class="line">name=&quot;cameracalibrator&quot; args=&quot;--size 8x6 --square 0.108 image:=/camera/image camera:=/camera&quot;</span><br><span class="line">output=&quot;screen&quot;/&gt;</span><br><span class="line">###将--square 0.108 修改为--square 0.0245</span><br><span class="line">&lt;node if=&quot;$(eval calibration_mode == &apos;calibration&apos;)&quot; pkg=&quot;camera_calibration&quot; type=&quot;cameracalibrator.py&quot;</span><br><span class="line">name=&quot;cameracalibrator&quot; args=&quot;--size 8x6 --square 0.0245 image:=/camera/image camera:=/camera&quot;</span><br><span class="line">output=&quot;screen&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,执行 calibration 模式下的内标定程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_IN_CALIB=calibration</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>可以参考官方教程进行标定:<a href="http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration" target="_blank" rel="noopener">参考链接</a></li>
+<li>标定完成之后将文件保存到 PC 下 turtlebot3_autorace_camera/calibration/intrinsic_calibration 文件夹下<br>并命名为 camerav2_320x240_30fps.yaml,修改名称:camera_name:camera,同时将该文件保<br>存到树莓派上的同样路径目录下。</li>
+</ul>
+<h1 id="TB3-Autorace-相机外标定"><a href="#TB3-Autorace-相机外标定" class="headerlink" title="TB3_Autorace-相机外标定"></a>TB3_Autorace-相机外标定</h1><p>操作步骤<br>[Remote PC] 新终端,启动 roscore<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动摄像头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动 action 模式下的内标定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_IN_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,启动 calibration 模式下的外标定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_EX_CALIB=calibration</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_extrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,打开 rqt</p>
+<ul>
+<li>左上角选择 plugins -&gt; visualization -&gt; Image view 打开图像窗口</li>
+<li>打开第二天图像窗口,选择 topic:/camera/image_extrinsic_calib/compressed</li>
+<li>打开第三个图像窗口,选择 topic:/camera/image_projected_compensated</li>
+</ul>
+<p>[Remote PC] 新终端,打开参数配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ rqt</span><br><span class="line">$ rosrun rqt_reconfigure rqt_reconfigure</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>调整参数值/camera/image_projection,/camera/image_compensation_projection</li>
+<li>调整 image_projection 参数,会改变打开/camera/image_extrinsic_calib/compressed 的图像窗口的红色方框的形状</li>
+<li>相机外标定将转换由红色矩形包围的图像,并将显示从通道上看的图像</li>
+<li>把相应的参数值写入到 PC 上的 turtlebot3_autorace_camera/calibration/extrinsic_calibration/文件里的 projection.yaml 文件</li>
+<li>下一次启动即会使用新的参数值</li>
+<li>若无法载入参数值,可以尝试修改 PC 上的 turtlebot3_autorace_camera/nodes/文件里的<br>image_projection.py 文件内的相关参数值</li>
+<li>效果图:</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/7.png" alt="7"></p>
+<h1 id="TB3-Autorace-车道识别"><a href="#TB3-Autorace-车道识别" class="headerlink" title="TB3_Autorace-车道识别"></a>TB3_Autorace-车道识别</h1><h2 id="车道线识别"><a href="#车道线识别" class="headerlink" title="车道线识别"></a>车道线识别</h2><p>操作步骤</p>
+<p>[Remote PC] 新终端,启动 roscore<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动摄像头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,打开 action 模式下的内标定程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_IN_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,打开 action 模式下的外标定程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_EX_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_extrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>主要调整 feature detector/color filter 来优化对象识别</li>
+<li>将 tb3 放置在车道中间,左边为黄色线,右边为白色线</li>
+</ul>
+<p>[Remote PC] 新终端,启动 calibration 模式下的车道识别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_DT_CALIB=calibration</span><br><span class="line">$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_lane.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,启动 rqt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rqt</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>左上角选择 plugins -&gt; visualization -&gt; Image view 新建图像窗口</li>
+<li>开第二个图像窗口,选择 topic:/detect/image_yellow_lane_marker/compressed</li>
+<li>开第三个图像窗口,选择 topic:/detect/image_lane/compressed</li>
+<li>开第四个图像窗口,选择 topic:/detect/image_white_lane_marker/compressed</li>
+<li>果一切正常,左右屏幕将显示黄线和白线的过滤图像,中心屏幕将显示机器人应该去的路径</li>
+<li>标定模式下,左右屏幕将显示白色,中央屏幕可能显示异常结果</li>
+<li>该调整滤镜参数以显示正确的线条和方向</li>
+</ul>
+<p>[Remote PC] 新终端启动 rqt_reconfigure<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run rqt_reconfigure rqt_reconfigure</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>由于实际物理环境包括房间内的光亮等,车道的彩色滤波的校准过程有时会非常困难</li>
+<li>校准时可以参考 turtlebot3_autorace_detect/param/lane/lane.yaml 里面的参数值</li>
+<li>首先校准色调低 - 高值。 色调值表示颜色,每种颜色,如黄色,白色,都有自己的色调值区域<br>(参考 hsv 图)</li>
+<li>然后校准饱和度低 - 高值。 每种颜色也有自己的饱和度。</li>
+<li>最后,校准亮度低 - 高值。 将亮度高值设置为 255.清晰过滤的线条图像将为您提供清晰的通道<br>结果。</li>
+<li>效果图:</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/8.png" alt="8"></p>
+<p><strong>注意事项:</strong></p>
+<ul>
+<li>以上效果图仅供参考,请根据实际环境来设置参数</li>
+</ul>
+<h2 id="车道识别测试"><a href="#车道识别测试" class="headerlink" title="车道识别测试"></a>车道识别测试</h2><p>[Remote PC] 完成标定之后关闭 rqt_rconfigure and turtlebot3_autorace_detect_lane<br>[Remote PC] 新终端,启动 action 模式下的车道识别测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_DT_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_lane.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,启动车道识别控制程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_control turtlebot3_autorace_control_lane.launch</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动 tb3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_bringup turtlebot3_robot.launch</span><br></pre></td></tr></table></figure></p>
+<h1 id="TB3-Autorace-交通信号识别"><a href="#TB3-Autorace-交通信号识别" class="headerlink" title="TB3_Autorace-交通信号识别"></a>TB3_Autorace-交通信号识别</h1><h2 id="制作交通标志"><a href="#制作交通标志" class="headerlink" title="制作交通标志"></a>制作交通标志</h2><ul>
+<li>交通标志检测需要一些交通标志的图片。</li>
+<li>节点使用 SIFT 算法查找交通标志</li>
+<li>因此如果您想使用自定义交通标志(未在 autorace_track 中引入)</li>
+<li>请注意交通标志中的更多边缘可提供更好的 SIFT 识别结果<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3></li>
+<li>启动摄像头后,通过 rqt_image_view 节点拍摄现有的交通标志图,并通过 linux 中的任何照片编<br>辑器编辑它们的大小和形状</li>
+<li>在远程 PC 上启动 rqt_image_view,选择话题/camera/image_compensated</li>
+<li>通过 alt+print screen 拍摄照片,使用首选照片编辑器编辑拍摄的照片</li>
+<li>之后,将图片放置到 PC 里的/turtlebot3_autorace/turtlebot3_autorace_detect/file/detect_sign/文件夹<br>并根据所需修改对应的文件名</li>
+<li>但是,如果要更改默认文件名,则应更改 detect_sign.py 中原本写入的文件名<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3></li>
+<li>下载以下三张交通信号标志图后,将图片放置到 PC 里的<br>/turtlebot3_autorace/turtlebot3_autorace_detect/file/detect_sign/文件夹并根据所需修改对应的文件名</li>
+<li>默认的文件名为: parking.png,stop.png,tunnel.png,其在官方例程中分别应用于泊车、通过交通杆<br>和隧道</li>
+<li>但是,如果要更改默认文件名,则应更改 detect_sign.py 中原本写入的文件名</li>
+<li>再将交通标志图打印出来,大小约为半张 A4 纸</li>
+<li>示例图:</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/9.png" alt="9"><br><img src="/自动驾驶/TB3-Autorace之调试/10.png" alt="10"><br><img src="/自动驾驶/TB3-Autorace之调试/11.png" alt="11"></p>
+<h2 id="交通信号识别测试"><a href="#交通信号识别测试" class="headerlink" title="交通信号识别测试"></a>交通信号识别测试</h2><p>把机器人放在车道上, 同时将交通标志应放置在机器人可以轻松看到的位置确保尚未启动 turtlebot3_bringup 包的 turtlebot3_robot 节点<br>[Remote PC] 新终端,启动 roscore<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动摄像头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,打开 action 模式下的内标定程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_IN_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,打开 action 模式下的外标定程序$ export AUTO_EX_CALIB=action<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_extrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>主要调整 feature detector/color filter 来优化对象识别</li>
+</ul>
+<p>[Remote PC] 新终端,启动交通信号识别程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_sign.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,启动 rqt_image_view<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rqt_image_view</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>选择 topic:/detect/image_traffic_sign/compressed</li>
+<li>如果它成功识别它,屏幕将显示交通标志检测的结果</li>
+<li>效果图</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/12.png" alt="12"></p>
+<h1 id="TB3-Autorace-交通灯识别"><a href="#TB3-Autorace-交通灯识别" class="headerlink" title="TB3_Autorace-交通灯识别"></a>TB3_Autorace-交通灯识别</h1><h2 id="交通灯识别"><a href="#交通灯识别" class="headerlink" title="交通灯识别"></a>交通灯识别</h2><p>操作步骤<br>[Remote PC] 新终端启动 roscore<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动摄像头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动 action 模式下的内标定程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_IN_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,启动 action 模式下的外标定程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_EX_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_extrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>主要调整 feature detector / color filter 来优化对象识别</li>
+<li>[Remote PC] 新终端,启动 calibration 模式下的交通灯识别程序</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_DT_CALIB=calibration</span><br><span class="line">$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_traffic_light.launch</span><br></pre></td></tr></table></figure>
+<ul>
+<li>[Remote PC] 新终端,启动 rqt</li>
+<li>左上角菜单栏上选择 plugins -&gt; visualization -&gt; Image view</li>
+<li>分别打开多个图像窗口选择不同话题</li>
+<li>打开窗口,选择 topic:/detect/image_red_light</li>
+<li>打开窗口,选择 topic:/detect/image_yellow_light</li>
+<li>打开窗口,选择 topic:/detect/image_green_light</li>
+<li>打开窗口,选择 topic:/detect/image_traffic_light</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rqt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果一切正常,三个屏幕将显示红色/黄色/绿色光的过滤图像,另一个将显示带有短字符串的识<br>别颜色</li>
+<li>在校准模式下,三个屏幕将显示白色,另一个屏幕可能显示明显的结果</li>
+<li>从这里,您应该调整滤镜参数以显示正确的线条和方向。</li>
+<li>[Remote PC] 新终端,启动参数设置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun rqt_reconfigure rqt_reconfigure</span><br></pre></td></tr></table></figure>
+<ul>
+<li>调整/detect_traffic_light 值,更改滤色器的值将显示每种颜色屏幕上过滤视图的更改</li>
+<li>之后,将值覆盖到 turtlebot3_autorace_detect/param/traffic_light/中的 traffic_light.yaml 文件</li>
+<li>但若参数不能正常载入,可以尝试直接修改 PC 上的 turtlebot3_autorace_detect/nodes/里的<br>detect_traffic_light 文件中的参数</li>
+<li>效果图:</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/13.png" alt="13"><br><strong>注意:</strong>以上效果图仅供参考,应该根据实际环境来设置参数</p>
+<h2 id="交通灯识别测试"><a href="#交通灯识别测试" class="headerlink" title="交通灯识别测试"></a>交通灯识别测试</h2><p>覆盖校准文件后,关闭 rqt_rconfigure 和 turtlebot3_autorace_detect_traffic_light<br>[Remote PC] 新终端启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_DT_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_traffic_light.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端启动 rqt_image_view<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rqt_image_view</span><br></pre></td></tr></table></figure></p>
+<p>检测结果是否正确</p>
+<h1 id="TB3-Autorace-自动泊车"><a href="#TB3-Autorace-自动泊车" class="headerlink" title="TB3_Autorace-自动泊车"></a>TB3_Autorace-自动泊车</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>停车只需要一次交通标志识别</li>
+<li>将一个机器人或者高于测试使用的机器人高度的物品放在其中一个停车位上,将要执行停车的机<br>器人放车道上</li>
+<li>将交通信号标志放置在停车位沿车道线的前方</li>
+<li>机器人需要识别到停车标志,再进入到停车程序,所以机器人与停车标志要有一定的距离</li>
+<li>示例图</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/2.png" alt="2"></p>
+<ul>
+<li>测试时搭建的场景图</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/14.jpg" alt="14"></p>
+<p>自动泊车测试</p>
+<ul>
+<li>使用完整的自动驾驶程序进行测试:</li>
+</ul>
+<h1 id="TB3-Autorace-交通杆识别"><a href="#TB3-Autorace-交通杆识别" class="headerlink" title="TB3_Autorace-交通杆识别"></a>TB3_Autorace-交通杆识别</h1><h2 id="交通杆识别"><a href="#交通杆识别" class="headerlink" title="交通杆识别"></a>交通杆识别</h2><p>操作步骤</p>
+<ul>
+<li>水平交通杆在水平面上找到 3 个红色矩形,并计算水平是打开还是关闭,以及机器人离交通杆有<br>多远</li>
+<li>将机器人放在车道上放置再关闭的水平交通杆面前</li>
+</ul>
+<p>[Remote PC] 新终端,启动 roscore<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动摄像头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动 action 模式下的内标定程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_IN_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,启动 action 模式下的外标定程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_EX_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_extrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>主要调整 feature detector / color filter 来优化对象识别</li>
+<li>[Remote PC]新终端,启动 calibration 模式的交通杆识别程序</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_DT_CALIB=calibration</span><br><span class="line">$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_level.launch</span><br></pre></td></tr></table></figure>
+<p>[Remote PC] 新终端,启动 rqt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rqt</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>左上角菜单栏上选择 plugins -&gt; visualization -&gt; Image view</li>
+<li>分别打开多个图像窗口选择不同 topic</li>
+<li>打开新窗口,选择 topic:/detect/image_level_color_filtered 打开新窗口,选择 topic:/detect/image_level</li>
+<li>如果一切正常,三个屏幕将显示红色矩形的过滤图像,另一个将绘制连接矩形的线条</li>
+<li>在校准模式下,屏幕将显示白色,而另一个屏幕可能显示明显的结果</li>
+<li>从这里,您应该调整滤镜参数以显示正确的线条和方向</li>
+<li>[Remote PC] 新终端,启动参数设置程序</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun rqt_reconfigure rqt_reconfigure</span><br></pre></td></tr></table></figure>
+<ul>
+<li>调整/detect_level 中的参数值</li>
+<li>更改滤色器的值将显示每种颜色屏幕上过滤视图的更改</li>
+<li>之后,将值覆盖到 PC 上 turtlebot3_autorace_detect/param/level/文件夹中的 level.yaml 文件</li>
+<li>将在下次启动使用新参数值</li>
+<li>效果图:</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/15.png" alt="15"><br><strong>注意:</strong>以上效果图仅供参考,请根据实际环境来设置参数</p>
+<h2 id="交通杆识别测试"><a href="#交通杆识别测试" class="headerlink" title="交通杆识别测试"></a>交通杆识别测试</h2><p>[Remote PC] 覆盖校准文件后,关闭 rqt_rconfigure 和 turtlebot3_autorace_detect_level<br>[Remote PC] 新终端,启动 action 模式的交通杆识别程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_DT_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_level.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,启动 rqt_image_view<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rqt_image_view</span><br></pre></td></tr></table></figure></p>
+<p>查看结果是否正确</p>
+<h1 id="TB3-Autorace-通过隧道"><a href="#TB3-Autorace-通过隧道" class="headerlink" title="TB3_Autorace-通过隧道"></a>TB3_Autorace-通过隧道</h1><h2 id="建图"><a href="#建图" class="headerlink" title="建图"></a>建图</h2><ul>
+<li>首先要确定机器人在整个自动驾驶流程的起点位置,因为机器人是基于里程计的信息来制作地图</li>
+<li>其次是确定隧道的所在位置,隧道可以用木板围起来,只留下出口和入口</li>
+<li>测试搭时建的示例场景</li>
+</ul>
+<p><img src="/自动驾驶/TB3-Autorace之调试/16.jpg" alt="16"></p>
+<ul>
+<li>接下来是通过 slam 来制作地图</li>
+</ul>
+<p><strong>注意:</strong></p>
+<ul>
+<li>机器人需要从起点位置通过键盘控制移动到隧道的中心位置,再启动 slam 程序,尽量不要扫描<br>到太多隧道外围的地图</li>
+<li>隧道入口是通过里程计反馈的坐标来确定,所以要确保机器人是从起点位置出发且出发时,里程<br>计的坐标应该处于原点</li>
+</ul>
+<h2 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h2><p>[Remote PC] 将保存好的地图复制到 turtlebot3_autorace/turtlebot3_autorace_control/maps 文件夹下且分别修改文件名为 tunnel.yaml 和 tunnel.pgm,同时将 tunnel.yaml 里面的 image 路径修改为 image: tunnel.pgm</p>
+<p>[Remote PC] 更改 turtlebot3_autorace/turtlebot3_autorace_detect/nodes/detect_tunnel 文件夹下detect_tunnel.py 的 fnPubGoalPose 函数里指定出口的位置及方向</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def fnPubGoalPose(self):goalPoseStamped = PoseStamped()</span><br><span class="line">goalPoseStamped.header.frame_id = &quot;map&quot;</span><br><span class="line">goalPoseStamped.header.stamp = rospy.Time.now()</span><br><span class="line">goalPoseStamped.pose.position.x = 0.15</span><br><span class="line">goalPoseStamped.pose.position.y = -1.76</span><br><span class="line">goalPoseStamped.pose.position.z = 0.0</span><br><span class="line">goalPoseStamped.pose.orientation.x = 0.0</span><br><span class="line">goalPoseStamped.pose.orientation.y = 0.0</span><br><span class="line">goalPoseStamped.pose.orientation.z = 0.0</span><br><span class="line">goalPoseStamped.pose.orientation.w = 1.0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>出口的位置及方向的获取可以通过使用已经建好的地图来进行导航,同时监听 topic:<br>/move_base/current_goal,当在导航中指定目标时,监听的终端就会显示相应的坐标和方向<br>隧道测试</li>
+<li>使用完整的自动驾驶程序进行测试</li>
+</ul>
+<p><strong>注意：</strong>但若导航时出错,需要关闭树莓派后重启机器人,确保机器人在起点出发时,里程计信息已重置</p>
+<h1 id="TB3-Autorace-完整测试"><a href="#TB3-Autorace-完整测试" class="headerlink" title="TB3_Autorace-完整测试"></a>TB3_Autorace-完整测试</h1><p>准备工作:</p>
+<ul>
+<li>从现在开始,所有相关节点都将以 action 模式运行</li>
+<li>如果有些尚未关闭,请关闭 Remote PC 和 TurtleBot SBC 上所有与 ROS 相关的程序和终端</li>
+<li>然后将机器人放在车道中间上</li>
+</ul>
+<p>操作步骤：<br>[Remote PC] 新终端,启动 roscore<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动 tb3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_bringup turtlebot3_robot.launch</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动相机<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch</span><br></pre></td></tr></table></figure></p>
+<p>[TurtleBot SBC] 新终端,启动 action 模式下的内标定程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_IN_CALIB=action</span><br><span class="line">$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,启动 action 模式下的自动驾驶程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ export AUTO_EX_CALIB=action</span><br><span class="line">$ export AUTO_DT_CALIB=action</span><br><span class="line">$ export TURTLEBOT3_MODEL=burger</span><br><span class="line">$ roslaunch turtlebot3_autorace_core turtlebot3_autorace_core.launch</span><br></pre></td></tr></table></figure></p>
+<p>[Remote PC] 新终端,执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rostopic pub -1 /core/decided_mode std_msgs/UInt8 &quot;data: 2&quot;</span><br></pre></td></tr></table></figure></p>
+<p>turtlebot3_autorace_core 将控制包中的所有系统,打开和关闭包中的节点。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      
+    <div>
+      
+        <div> 
+    
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束  <i class="fa fa-heart" style="font-size:12px"></i>  感谢阅读-------------</div> 
+    
+</div>
+
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ROS/" rel="tag"><i class="fa fa-tag"></i>ROS</a> 
+          
+            <a href="/tags/自动驾驶/" rel="tag"><i class="fa fa-tag"></i>自动驾驶</a> 
+          
+            <a href="/tags/TB3/" rel="tag"><i class="fa fa-tag"></i>TB3</a> 
+          
+            <a href="/tags/OpenCV/" rel="tag"><i class="fa fa-tag"></i>OpenCV</a> 
+          
+            <a href="/tags/代码分享/" rel="tag"><i class="fa fa-tag"></i>代码分享</a> 
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/路径规划/局部路径规划算法之DWA/" rel="next" title="局部路径规划算法之DWA">
+                <i class="fa fa-chevron-left"></i> 局部路径规划算法之DWA
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDUwMy8yMTAzNA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Steven Suen">
+          <p class="site-author-name" itemprop="name">Steven Suen</p>
+           
+              <p class="site-description motion-element" itemprop="description">普通的开发者，热情的学习者</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sun-coke" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="sun_db@hust.edu.cn" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ros.org/" title="ROS wiki" target="_blank">ROS wiki</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.guyuehome.com/" title="古月居" target="_blank">古月居</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.ncnynl.com/" title="创客智造" target="_blank">创客智造</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.exbot.net/" title="ROS星火计划" target="_blank">ROS星火计划</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://emanual.robotis.com/" title="ROBOTIS" target="_blank">ROBOTIS</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://apollo.auto/" title="apollo" target="_blank">apollo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.voidcc.com/" title="开发小院" target="_blank">开发小院</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-硬件要求"><span class="nav-number">1.</span> <span class="nav-text">TB3_Autorace-硬件要求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件配置"><span class="nav-number">1.1.</span> <span class="nav-text">硬件配置:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-软件要求"><span class="nav-number">2.</span> <span class="nav-text">TB3_Autorace-软件要求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#软件配置"><span class="nav-number">2.1.</span> <span class="nav-text">软件配置:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-场景搭建"><span class="nav-number">3.</span> <span class="nav-text">TB3_Autorace-场景搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#场地要求："><span class="nav-number">3.1.</span> <span class="nav-text">场地要求：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#车道"><span class="nav-number">3.2.</span> <span class="nav-text">车道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#停车位"><span class="nav-number">3.3.</span> <span class="nav-text">停车位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交通灯"><span class="nav-number">3.4.</span> <span class="nav-text">交通灯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交通杆"><span class="nav-number">3.5.</span> <span class="nav-text">交通杆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隧道"><span class="nav-number">3.6.</span> <span class="nav-text">隧道</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-图像校准"><span class="nav-number">4.</span> <span class="nav-text">TB3_Autorace-图像校准</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作步骤："><span class="nav-number">4.1.</span> <span class="nav-text">操作步骤：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-相机内标定"><span class="nav-number">5.</span> <span class="nav-text">TB3_Autorace-相机内标定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-相机外标定"><span class="nav-number">6.</span> <span class="nav-text">TB3_Autorace-相机外标定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-车道识别"><span class="nav-number">7.</span> <span class="nav-text">TB3_Autorace-车道识别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#车道线识别"><span class="nav-number">7.1.</span> <span class="nav-text">车道线识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#车道识别测试"><span class="nav-number">7.2.</span> <span class="nav-text">车道识别测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-交通信号识别"><span class="nav-number">8.</span> <span class="nav-text">TB3_Autorace-交通信号识别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#制作交通标志"><span class="nav-number">8.1.</span> <span class="nav-text">制作交通标志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一"><span class="nav-number">8.1.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二"><span class="nav-number">8.1.2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交通信号识别测试"><span class="nav-number">8.2.</span> <span class="nav-text">交通信号识别测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-交通灯识别"><span class="nav-number">9.</span> <span class="nav-text">TB3_Autorace-交通灯识别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#交通灯识别"><span class="nav-number">9.1.</span> <span class="nav-text">交通灯识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交通灯识别测试"><span class="nav-number">9.2.</span> <span class="nav-text">交通灯识别测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-自动泊车"><span class="nav-number">10.</span> <span class="nav-text">TB3_Autorace-自动泊车</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">10.1.</span> <span class="nav-text">准备工作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-交通杆识别"><span class="nav-number">11.</span> <span class="nav-text">TB3_Autorace-交通杆识别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#交通杆识别"><span class="nav-number">11.1.</span> <span class="nav-text">交通杆识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交通杆识别测试"><span class="nav-number">11.2.</span> <span class="nav-text">交通杆识别测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-通过隧道"><span class="nav-number">12.</span> <span class="nav-text">TB3_Autorace-通过隧道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建图"><span class="nav-number">12.1.</span> <span class="nav-text">建图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导航"><span class="nav-number">12.2.</span> <span class="nav-text">导航</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TB3-Autorace-完整测试"><span class="nav-number">13.</span> <span class="nav-text">TB3_Autorace-完整测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Steven Suen</span>
+</div>
+
+<!--
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+-->
+
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span> <script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("04/01/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站总访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</body>
+</html>

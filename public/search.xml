@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[TB3_Autorace之调试]]></title>
+    <url>%2F%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%2FTB3-Autorace%E4%B9%8B%E8%B0%83%E8%AF%95%2F</url>
+    <content type="text"><![CDATA[有关利用TB3实现自动驾驶任务时的参数调试注意事项及经验总结 上策存人中策存物下策存钱 TB3_Autorace-硬件要求硬件配置:机器人: TurtleBot3 Burger远程 PC: Remote PC (Laptop, Desktop, etc.)辅助设备: 鱼眼相机:Raspberry Pi Camera Type G 相机固定架:Raspberry Pi Camera Mount赛道结构和配件: 裁判系统资源: https://github.com/ROBOTIS-GIT/autorace_referee CAD 模型: https://github.com/ROBOTIS-GIT/autorace_track TB3_Autorace-软件要求软件配置:[Remote PC &amp; TurtleBot SBC] 安装依赖12$ sudo apt-get install ros-kinetic-image-transport ros-kinetic-cv-bridge ros-kinetic-vision-opencv python-opencvlibopencv-dev ros-kinetic-image-proc [Remote PC &amp; TurtleBot SBC] 安装 autorace 包123$ cd ~/catkin_ws/src/$ git clone https://github.com/ROBOTIS-GIT/turtlebot3_autorace.git$ cd ~/catkin_ws &amp;&amp; catkin_make [Remote PC &amp; TurtleBot SBC] 安装 raspicam_node123$ cd ~/catkin_ws/src/$ git clone https://github.com/ncnynl/raspicam_node$ cd ~/catkin_ws &amp;&amp; catkin_make TB3_Autorace-场景搭建场地要求： 由于 Turtlebot3 测试自动驾驶受环境光线影响较大,所以测试环境应该设置在室内,且尽量保证早 晚的环境光线保持一致 场地应该采用深色平坦,不能太过光滑的背景,建议背景色为黑色 下图是测试时搭建的场景 车道 车道主要由两条车道线组成,基于机器人的位置判定,左边为黄色车道线,右边为白色车道线 建议黄色车道线与白色车道线的距离设置为 25cm 车道线的宽度为 2cm 或 3cm 参考图 停车位 停车位上的停车虚线段长度在 2cm 或 3cm 每两段停车虚线段之间的距离不适宜太远,要确保进行停车时,topic:/detect/image_parking 上 的摄像头检测到多个停车虚线段 参考图 交通灯 交通灯可以用红黄绿三种 LED 灯来代替,或者使用自行车青蛙灯 参考图 交通杆 交通杆的制作可以使用三片红色的纸片或丝带 建议色块大小为长 4cm,宽 2cm,两色块相距 4cm 交通杆应该放置在与摄像头水平的位置 参考图 隧道 隧道入口和出口的宽度应该大于车道的宽度,大约为 30cm 隧道可以使用木板或纸箱等高于 25cm 的物品围起来,只留出入口 隧道出口一般设置在整个自动驾驶流程的起点处 参考图 TB3_Autorace-图像校准操作步骤：[Remote PC] 新终端,启动 roscore1$ roscore [TurtleBot SBC] 新终端,启动相机1$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch [Remote PC] 新终端,浏览图像界面1$ rqt_image_view 选择 topic:/camera/image/compressed 或/camera/image/ 如果正常则可以看到图像 [Remote PC] 新终端,打开配置界面1$ rosrun rqt_reconfigure rqt_reconfigure 选择 camera,调整参数值,使相机显示干净,足够明亮的图像。 之后,将每个值覆盖到树莓派上turtlebot3_autorace_camera/calibration/camera_calibration 文件夹中 camera.yaml里的参数值 下次启动即会使用新的参数值,以达到更好的显示效果 若不能正常载入参数,可以尝试修改树莓上的 raspicam_node/cfg 文件夹中的 Camera.cfg 内的参数值 效果图 TB3_Autorace-相机内标定操作步骤[Remote PC] 新终端,启动 roscore1$ roscore [TurtleBot SBC] 新终端,启动摄像头1$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch 将 PC 上的 turtlebot3_autorace_camera/data文件夹里的checkerboard_for_calibration.pdf 的内容打印到一张 A4 纸上 [Remote PC] 根据打印出来的格子直径修改 turtlebot3_autorace_camera/launch文件夹里的turtlebot3_autorace_intrinsic_camera_calibration.launch 的–square 0.1081234567&lt;node if=&quot;$(eval calibration_mode == &apos;calibration&apos;)&quot; pkg=&quot;camera_calibration&quot; type=&quot;cameracalibrator.py&quot;name=&quot;cameracalibrator&quot; args=&quot;--size 8x6 --square 0.108 image:=/camera/image camera:=/camera&quot;output=&quot;screen&quot;/&gt;###将--square 0.108 修改为--square 0.0245&lt;node if=&quot;$(eval calibration_mode == &apos;calibration&apos;)&quot; pkg=&quot;camera_calibration&quot; type=&quot;cameracalibrator.py&quot;name=&quot;cameracalibrator&quot; args=&quot;--size 8x6 --square 0.0245 image:=/camera/image camera:=/camera&quot;output=&quot;screen&quot;/&gt; [Remote PC] 新终端,执行 calibration 模式下的内标定程序12$ export AUTO_IN_CALIB=calibration$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch 可以参考官方教程进行标定:参考链接 标定完成之后将文件保存到 PC 下 turtlebot3_autorace_camera/calibration/intrinsic_calibration 文件夹下并命名为 camerav2_320x240_30fps.yaml,修改名称:camera_name:camera,同时将该文件保存到树莓派上的同样路径目录下。 TB3_Autorace-相机外标定操作步骤[Remote PC] 新终端,启动 roscore1$ roscore [TurtleBot SBC] 新终端,启动摄像头1$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch [TurtleBot SBC] 新终端,启动 action 模式下的内标定12$ export AUTO_IN_CALIB=action$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch [Remote PC] 新终端,启动 calibration 模式下的外标定12$ export AUTO_EX_CALIB=calibration$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_extrinsic_camera_calibration.launch [Remote PC] 新终端,打开 rqt 左上角选择 plugins -&gt; visualization -&gt; Image view 打开图像窗口 打开第二天图像窗口,选择 topic:/camera/image_extrinsic_calib/compressed 打开第三个图像窗口,选择 topic:/camera/image_projected_compensated [Remote PC] 新终端,打开参数配置12$ rqt$ rosrun rqt_reconfigure rqt_reconfigure 调整参数值/camera/image_projection,/camera/image_compensation_projection 调整 image_projection 参数,会改变打开/camera/image_extrinsic_calib/compressed 的图像窗口的红色方框的形状 相机外标定将转换由红色矩形包围的图像,并将显示从通道上看的图像 把相应的参数值写入到 PC 上的 turtlebot3_autorace_camera/calibration/extrinsic_calibration/文件里的 projection.yaml 文件 下一次启动即会使用新的参数值 若无法载入参数值,可以尝试修改 PC 上的 turtlebot3_autorace_camera/nodes/文件里的image_projection.py 文件内的相关参数值 效果图: TB3_Autorace-车道识别车道线识别操作步骤 [Remote PC] 新终端,启动 roscore1$ roscore [TurtleBot SBC] 新终端,启动摄像头1$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch [TurtleBot SBC] 新终端,打开 action 模式下的内标定程序12$ export AUTO_IN_CALIB=action$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch [Remote PC] 新终端,打开 action 模式下的外标定程序12$ export AUTO_EX_CALIB=action$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_extrinsic_camera_calibration.launch 主要调整 feature detector/color filter 来优化对象识别 将 tb3 放置在车道中间,左边为黄色线,右边为白色线 [Remote PC] 新终端,启动 calibration 模式下的车道识别12$ export AUTO_DT_CALIB=calibration$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_lane.launch [Remote PC] 新终端,启动 rqt1$ rqt 左上角选择 plugins -&gt; visualization -&gt; Image view 新建图像窗口 开第二个图像窗口,选择 topic:/detect/image_yellow_lane_marker/compressed 开第三个图像窗口,选择 topic:/detect/image_lane/compressed 开第四个图像窗口,选择 topic:/detect/image_white_lane_marker/compressed 果一切正常,左右屏幕将显示黄线和白线的过滤图像,中心屏幕将显示机器人应该去的路径 标定模式下,左右屏幕将显示白色,中央屏幕可能显示异常结果 该调整滤镜参数以显示正确的线条和方向 [Remote PC] 新终端启动 rqt_reconfigure1run rqt_reconfigure rqt_reconfigure 由于实际物理环境包括房间内的光亮等,车道的彩色滤波的校准过程有时会非常困难 校准时可以参考 turtlebot3_autorace_detect/param/lane/lane.yaml 里面的参数值 首先校准色调低 - 高值。 色调值表示颜色,每种颜色,如黄色,白色,都有自己的色调值区域(参考 hsv 图) 然后校准饱和度低 - 高值。 每种颜色也有自己的饱和度。 最后,校准亮度低 - 高值。 将亮度高值设置为 255.清晰过滤的线条图像将为您提供清晰的通道结果。 效果图: 注意事项: 以上效果图仅供参考,请根据实际环境来设置参数 车道识别测试[Remote PC] 完成标定之后关闭 rqt_rconfigure and turtlebot3_autorace_detect_lane[Remote PC] 新终端,启动 action 模式下的车道识别测试12$ export AUTO_DT_CALIB=action$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_lane.launch [Remote PC] 新终端,启动车道识别控制程序1$ roslaunch turtlebot3_autorace_control turtlebot3_autorace_control_lane.launch [TurtleBot SBC] 新终端,启动 tb31$ roslaunch turtlebot3_bringup turtlebot3_robot.launch TB3_Autorace-交通信号识别制作交通标志 交通标志检测需要一些交通标志的图片。 节点使用 SIFT 算法查找交通标志 因此如果您想使用自定义交通标志(未在 autorace_track 中引入) 请注意交通标志中的更多边缘可提供更好的 SIFT 识别结果方法一 启动摄像头后,通过 rqt_image_view 节点拍摄现有的交通标志图,并通过 linux 中的任何照片编辑器编辑它们的大小和形状 在远程 PC 上启动 rqt_image_view,选择话题/camera/image_compensated 通过 alt+print screen 拍摄照片,使用首选照片编辑器编辑拍摄的照片 之后,将图片放置到 PC 里的/turtlebot3_autorace/turtlebot3_autorace_detect/file/detect_sign/文件夹并根据所需修改对应的文件名 但是,如果要更改默认文件名,则应更改 detect_sign.py 中原本写入的文件名方法二 下载以下三张交通信号标志图后,将图片放置到 PC 里的/turtlebot3_autorace/turtlebot3_autorace_detect/file/detect_sign/文件夹并根据所需修改对应的文件名 默认的文件名为: parking.png,stop.png,tunnel.png,其在官方例程中分别应用于泊车、通过交通杆和隧道 但是,如果要更改默认文件名,则应更改 detect_sign.py 中原本写入的文件名 再将交通标志图打印出来,大小约为半张 A4 纸 示例图: 交通信号识别测试把机器人放在车道上, 同时将交通标志应放置在机器人可以轻松看到的位置确保尚未启动 turtlebot3_bringup 包的 turtlebot3_robot 节点[Remote PC] 新终端,启动 roscore1$ roscore [TurtleBot SBC] 新终端,启动摄像头1$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch [TurtleBot SBC] 新终端,打开 action 模式下的内标定程序12$ export AUTO_IN_CALIB=action$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch [Remote PC] 新终端,打开 action 模式下的外标定程序$ export AUTO_EX_CALIB=action1$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_extrinsic_camera_calibration.launch 主要调整 feature detector/color filter 来优化对象识别 [Remote PC] 新终端,启动交通信号识别程序1$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_sign.launch [Remote PC] 新终端,启动 rqt_image_view1$ rqt_image_view 选择 topic:/detect/image_traffic_sign/compressed 如果它成功识别它,屏幕将显示交通标志检测的结果 效果图 TB3_Autorace-交通灯识别交通灯识别操作步骤[Remote PC] 新终端启动 roscore1$ roscore [TurtleBot SBC] 新终端,启动摄像头1$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch [TurtleBot SBC] 新终端,启动 action 模式下的内标定程序12$ export AUTO_IN_CALIB=action$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch [Remote PC] 新终端,启动 action 模式下的外标定程序12$ export AUTO_EX_CALIB=action$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_extrinsic_camera_calibration.launch 主要调整 feature detector / color filter 来优化对象识别 [Remote PC] 新终端,启动 calibration 模式下的交通灯识别程序 12$ export AUTO_DT_CALIB=calibration$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_traffic_light.launch [Remote PC] 新终端,启动 rqt 左上角菜单栏上选择 plugins -&gt; visualization -&gt; Image view 分别打开多个图像窗口选择不同话题 打开窗口,选择 topic:/detect/image_red_light 打开窗口,选择 topic:/detect/image_yellow_light 打开窗口,选择 topic:/detect/image_green_light 打开窗口,选择 topic:/detect/image_traffic_light 1$ rqt 如果一切正常,三个屏幕将显示红色/黄色/绿色光的过滤图像,另一个将显示带有短字符串的识别颜色 在校准模式下,三个屏幕将显示白色,另一个屏幕可能显示明显的结果 从这里,您应该调整滤镜参数以显示正确的线条和方向。 [Remote PC] 新终端,启动参数设置 1$ rosrun rqt_reconfigure rqt_reconfigure 调整/detect_traffic_light 值,更改滤色器的值将显示每种颜色屏幕上过滤视图的更改 之后,将值覆盖到 turtlebot3_autorace_detect/param/traffic_light/中的 traffic_light.yaml 文件 但若参数不能正常载入,可以尝试直接修改 PC 上的 turtlebot3_autorace_detect/nodes/里的detect_traffic_light 文件中的参数 效果图: 注意:以上效果图仅供参考,应该根据实际环境来设置参数 交通灯识别测试覆盖校准文件后,关闭 rqt_rconfigure 和 turtlebot3_autorace_detect_traffic_light[Remote PC] 新终端启动12$ export AUTO_DT_CALIB=action$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_traffic_light.launch [Remote PC] 新终端启动 rqt_image_view1$ rqt_image_view 检测结果是否正确 TB3_Autorace-自动泊车准备工作 停车只需要一次交通标志识别 将一个机器人或者高于测试使用的机器人高度的物品放在其中一个停车位上,将要执行停车的机器人放车道上 将交通信号标志放置在停车位沿车道线的前方 机器人需要识别到停车标志,再进入到停车程序,所以机器人与停车标志要有一定的距离 示例图 测试时搭建的场景图 自动泊车测试 使用完整的自动驾驶程序进行测试: TB3_Autorace-交通杆识别交通杆识别操作步骤 水平交通杆在水平面上找到 3 个红色矩形,并计算水平是打开还是关闭,以及机器人离交通杆有多远 将机器人放在车道上放置再关闭的水平交通杆面前 [Remote PC] 新终端,启动 roscore1$ roscore [TurtleBot SBC] 新终端,启动摄像头1$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch [TurtleBot SBC] 新终端,启动 action 模式下的内标定程序12$ export AUTO_IN_CALIB=action$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch [Remote PC] 新终端,启动 action 模式下的外标定程序12$ export AUTO_EX_CALIB=action$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_extrinsic_camera_calibration.launch 主要调整 feature detector / color filter 来优化对象识别 [Remote PC]新终端,启动 calibration 模式的交通杆识别程序 12$ export AUTO_DT_CALIB=calibration$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_level.launch [Remote PC] 新终端,启动 rqt1$ rqt 左上角菜单栏上选择 plugins -&gt; visualization -&gt; Image view 分别打开多个图像窗口选择不同 topic 打开新窗口,选择 topic:/detect/image_level_color_filtered 打开新窗口,选择 topic:/detect/image_level 如果一切正常,三个屏幕将显示红色矩形的过滤图像,另一个将绘制连接矩形的线条 在校准模式下,屏幕将显示白色,而另一个屏幕可能显示明显的结果 从这里,您应该调整滤镜参数以显示正确的线条和方向 [Remote PC] 新终端,启动参数设置程序 1$ rosrun rqt_reconfigure rqt_reconfigure 调整/detect_level 中的参数值 更改滤色器的值将显示每种颜色屏幕上过滤视图的更改 之后,将值覆盖到 PC 上 turtlebot3_autorace_detect/param/level/文件夹中的 level.yaml 文件 将在下次启动使用新参数值 效果图: 注意:以上效果图仅供参考,请根据实际环境来设置参数 交通杆识别测试[Remote PC] 覆盖校准文件后,关闭 rqt_rconfigure 和 turtlebot3_autorace_detect_level[Remote PC] 新终端,启动 action 模式的交通杆识别程序12$ export AUTO_DT_CALIB=action$ roslaunch turtlebot3_autorace_detect turtlebot3_autorace_detect_level.launch [Remote PC] 新终端,启动 rqt_image_view1$ rqt_image_view 查看结果是否正确 TB3_Autorace-通过隧道建图 首先要确定机器人在整个自动驾驶流程的起点位置,因为机器人是基于里程计的信息来制作地图 其次是确定隧道的所在位置,隧道可以用木板围起来,只留下出口和入口 测试搭时建的示例场景 接下来是通过 slam 来制作地图 注意: 机器人需要从起点位置通过键盘控制移动到隧道的中心位置,再启动 slam 程序,尽量不要扫描到太多隧道外围的地图 隧道入口是通过里程计反馈的坐标来确定,所以要确保机器人是从起点位置出发且出发时,里程计的坐标应该处于原点 导航[Remote PC] 将保存好的地图复制到 turtlebot3_autorace/turtlebot3_autorace_control/maps 文件夹下且分别修改文件名为 tunnel.yaml 和 tunnel.pgm,同时将 tunnel.yaml 里面的 image 路径修改为 image: tunnel.pgm [Remote PC] 更改 turtlebot3_autorace/turtlebot3_autorace_detect/nodes/detect_tunnel 文件夹下detect_tunnel.py 的 fnPubGoalPose 函数里指定出口的位置及方向 12345678910def fnPubGoalPose(self):goalPoseStamped = PoseStamped()goalPoseStamped.header.frame_id = &quot;map&quot;goalPoseStamped.header.stamp = rospy.Time.now()goalPoseStamped.pose.position.x = 0.15goalPoseStamped.pose.position.y = -1.76goalPoseStamped.pose.position.z = 0.0goalPoseStamped.pose.orientation.x = 0.0goalPoseStamped.pose.orientation.y = 0.0goalPoseStamped.pose.orientation.z = 0.0goalPoseStamped.pose.orientation.w = 1.0 出口的位置及方向的获取可以通过使用已经建好的地图来进行导航,同时监听 topic:/move_base/current_goal,当在导航中指定目标时,监听的终端就会显示相应的坐标和方向隧道测试 使用完整的自动驾驶程序进行测试 注意：但若导航时出错,需要关闭树莓派后重启机器人,确保机器人在起点出发时,里程计信息已重置 TB3_Autorace-完整测试准备工作: 从现在开始,所有相关节点都将以 action 模式运行 如果有些尚未关闭,请关闭 Remote PC 和 TurtleBot SBC 上所有与 ROS 相关的程序和终端 然后将机器人放在车道中间上 操作步骤：[Remote PC] 新终端,启动 roscore1$ roscore [TurtleBot SBC] 新终端,启动 tb31$ roslaunch turtlebot3_bringup turtlebot3_robot.launch [TurtleBot SBC] 新终端,启动相机1$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_camera_pi.launch [TurtleBot SBC] 新终端,启动 action 模式下的内标定程序12$ export AUTO_IN_CALIB=action$ roslaunch turtlebot3_autorace_camera turtlebot3_autorace_intrinsic_camera_calibration.launch [Remote PC] 新终端,启动 action 模式下的自动驾驶程序1234$ export AUTO_EX_CALIB=action$ export AUTO_DT_CALIB=action$ export TURTLEBOT3_MODEL=burger$ roslaunch turtlebot3_autorace_core turtlebot3_autorace_core.launch [Remote PC] 新终端,执行1$ rostopic pub -1 /core/decided_mode std_msgs/UInt8 &quot;data: 2&quot; turtlebot3_autorace_core 将控制包中的所有系统,打开和关闭包中的节点。]]></content>
+      <categories>
+        <category>自动驾驶</category>
+      </categories>
+      <tags>
+        <tag>ROS</tag>
+        <tag>自动驾驶</tag>
+        <tag>TB3</tag>
+        <tag>OpenCV</tag>
+        <tag>代码分享</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[局部路径规划算法之DWA]]></title>
     <url>%2F%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92%2F%E5%B1%80%E9%83%A8%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95%E4%B9%8BDWA%2F</url>
     <content type="text"><![CDATA[ROS中的DWA（dynamic window approach）局部路径规划算法python实现！ 幸运的爱,与勇者长相随。 算法简介机器人在获得目的地信息后，首先经过全局路径规划规划出一条大致可行的路线，然后调用局部路径规划器根据这条路线及costmap的信息规划出机器人在局部时做出具体行动策略，ROS中主要是使用了DWA算法（dynamic window approach）。在ROS中每当move_base处于规划状态就调用DWA算法计算出一条最佳的速度指令，发送给机器人运动底盘执行。 算法原理DWA算法主要是在速度空间（v,w）中采样多组速度，并模拟这些速度在一定时间（sim_period）内的运动轨迹，再通过一个评价函数对这些轨迹打分，选取得分最高的最优路径，并把相应的速度控制指令发送给机器人。该算法的突出点在于动态窗口这个概念，它的含义是依据移动机器人的加减速性能限定速度速度采样空间在一个可行的动态范围内。 算法流程运动学建模对机器人建立运动学模型，将线速度和角速度进行数学公式表示。代码封装如下：12345678def motion(x, u, dt): # motion model x[2] += u[1] * dt x[0] += u[0] * math.cos(x[2]) * dt x[1] += u[0] * math.sin(x[2]) * dt x[3] = u[0] x[4] = u[1] return x 速度采样在速度空间（v,w）对速度进行采样，采样过程需要考虑到机器人本身和环境的限制，包括： 机器人速度限制：机器人的速度限定在一定范围内。 机器人加速度限制：受电机扭矩限制，机器人的加速度被限定在一定范围内。 机器人安全距离限制：考虑到机器人半径，需要考虑到安全距离。 代码封装如下：1234567891011121314def __init__(self): # robot parameter self.max_speed = 1.0 # [m/s] self.min_speed = -0.5 # [m/s] self.max_yawrate = 40.0 * math.pi / 180.0 # [rad/s] self.max_accel = 0.2 # [m/ss] self.max_dyawrate = 40.0 * math.pi / 180.0 # [rad/ss] self.v_reso = 0.01 # [m/s] self.yawrate_reso = 0.1 * math.pi / 180.0 # [rad/s] self.dt = 0.1 # [s] self.predict_time = 3.0 # [s] self.to_goal_cost_gain = 1.0 self.speed_cost_gain = 1.0 self.robot_radius = 1.0 # [m] 评价函数 方位角评价函数heading(v,w)：模拟轨迹的末端点与目标点角度差。差值越小，评分越高。 空隙评价函数dist(v,w)：当前模拟轨迹上距障碍物最近距离，没有障碍物，设定常数。距离越远，评分越高。 速度评价函数velocity(v,w)：评价当前轨迹的速度值大小。速度越大，评分越高。 平滑处理（归一化）：使评价函数连续化，不至于使某一个评价函数过大影响最优轨迹的选取。 代码封装如下：12345678910111213141516171819202122232425262728293031def calc_obstacle_cost(traj, ob, config): # calc obstacle cost inf: collistion, 0:free skip_n = 2 minr = float("inf") for ii in range(0, len(traj[:, 1]), skip_n): for i in range(len(ob[:, 0])): ox = ob[i, 0] oy = ob[i, 1] dx = traj[ii, 0] - ox dy = traj[ii, 1] - oy r = math.sqrt(dx**2 + dy**2) if r &lt;= config.robot_radius: return float("Inf") # collision if minr &gt;= r: minr = r return 1.0 / minr # OKdef calc_to_goal_cost(traj, goal, config): # calc to goal cost. It is 2D norm. goal_magnitude = math.sqrt(goal[0]**2 + goal[1]**2) traj_magnitude = math.sqrt(traj[-1, 0]**2 + traj[-1, 1]**2) dot_product = (goal[0] * traj[-1, 0]) + (goal[1] * traj[-1, 1]) error = dot_product / (goal_magnitude * traj_magnitude) error_angle = math.acos(error) cost = config.to_goal_cost_gain * error_angle return cost 轨迹选取初始化原始轨迹及成本值，根据计算得到的轨迹评分，得到最终的总的成本值final_cost，将轨迹的成本值同min_cost相比较，若得到的成本值小于最小成本值，则更新min_cost以及速度采样值，直到选取出采样速度中的成本值最低的轨迹即最优轨迹。代码封装如下：123456789101112131415161718192021222324252627def calc_final_input(x, u, dw, config, goal, ob): xinit = x[:] min_cost = 10000.0 min_u = u min_u[0] = 0.0 best_traj = np.array([x]) # evalucate all trajectory with sampled input in dynamic window for v in np.arange(dw[0], dw[1], config.v_reso): for y in np.arange(dw[2], dw[3], config.yawrate_reso): traj = calc_trajectory(xinit, v, y, config) # calc cost to_goal_cost = calc_to_goal_cost(traj, goal, config) speed_cost = config.speed_cost_gain * \ (config.max_speed - traj[-1, 3]) ob_cost = calc_obstacle_cost(traj, ob, config) final_cost = to_goal_cost + speed_cost + ob_cost # search minimum trajectory if min_cost &gt;= final_cost: min_cost = final_cost min_u = [v, y] best_traj = traj return min_u, best_traj main()函数在main()函数中我们设定初始位置和目标位置，并建立障碍物环境，这里我们设定动态窗口检测次数为1000，在刷新到400次的时候，我们在原有的轨迹上动态添加障碍物来测试DWA算法的鲁棒性。当轨迹点到目标点的距离小于设定的安全距离时，则认为到达目标点。将机器人实时选取的最优轨迹打印到屏幕上。代码封装如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657def main(gx=10, gy=10.5): x = np.array([0.0, 0.0, math.pi / 8.0, 0.0, 0.0]) # goal position [x(m), y(m)] goal = np.array([gx, gy]) # obstacles [x(m) y(m), ....] ob = np.array([[-1, -1], [0, 2], [4.0, 2.0], [5.0, 4.0], [5.0, 5.0], [5.0, 6.0], [3.0, 9.0], [4.0, 9.0], [5.0, 9.0], [6.0, 9.0], [7.0, 9.0], [8.0, 9.0], [12.0, 12.0] ]) u = np.array([0.0, 0.0]) config = Config() traj = np.array(x) for i in range(1000): if i == 140: ob[9] = [9.0, 9.0] ob[10] = [10.0, 9.0] ob[11] = [11.0, 9.0] u, ltraj = dwa_control(x, u, config, goal, ob) x = motion(x, u, config.dt) traj = np.vstack((traj, x)) # print(traj) if show_animation: plt.cla() plt.plot(ltraj[:, 0], ltraj[:, 1], "-g") plt.plot(x[0], x[1], "xr") plt.plot(goal[0], goal[1], "xb") plt.plot(ob[:, 0], ob[:, 1], "ok") plot_arrow(x[0], x[1], x[2]) plt.axis("equal") plt.grid(True) plt.pause(0.001) # check goal if math.sqrt((x[0] - goal[0])**2 + (x[1] - goal[1])**2) &lt;= config.robot_radius: print("Goal!!") break print("Done") if show_animation: plt.plot(traj[:, 0], traj[:, 1], "-r") plt.pause(0.001) plt.show() 经验分享 可通过修改障碍物ob[]坐标来添加动态障碍物，来测试算法的实时避障性能。 在测试过程中发现对于个别动态障碍物或是死角障碍的情况，该算法容易陷入局部最优的情况。 该算法主要用于差分驱动的机器人模型，可以添加障碍物清理模块或是逃离模块来解决陷入局部最优的情况。]]></content>
@@ -34,9 +49,9 @@
       <tags>
         <tag>ROS</tag>
         <tag>自动驾驶</tag>
+        <tag>TB3</tag>
         <tag>OpenCV</tag>
         <tag>代码分享</tag>
-        <tag>TB3</tag>
       </tags>
   </entry>
   <entry>
@@ -61,9 +76,9 @@
       <tags>
         <tag>ROS</tag>
         <tag>自动驾驶</tag>
+        <tag>TB3</tag>
         <tag>OpenCV</tag>
         <tag>代码分享</tag>
-        <tag>TB3</tag>
       </tags>
   </entry>
   <entry>
@@ -76,9 +91,9 @@
       <tags>
         <tag>ROS</tag>
         <tag>自动驾驶</tag>
+        <tag>TB3</tag>
         <tag>OpenCV</tag>
         <tag>代码分享</tag>
-        <tag>TB3</tag>
       </tags>
   </entry>
   <entry>
@@ -91,9 +106,9 @@
       <tags>
         <tag>ROS</tag>
         <tag>自动驾驶</tag>
+        <tag>TB3</tag>
         <tag>OpenCV</tag>
         <tag>代码分享</tag>
-        <tag>TB3</tag>
       </tags>
   </entry>
   <entry>
@@ -104,11 +119,11 @@
         <category>TB3</category>
       </categories>
       <tags>
-        <tag>经验分享</tag>
         <tag>自动驾驶</tag>
+        <tag>经验分享</tag>
+        <tag>TB3</tag>
         <tag>OpenCV</tag>
         <tag>代码分享</tag>
-        <tag>TB3</tag>
       </tags>
   </entry>
   <entry>
@@ -119,10 +134,10 @@
         <category>SLAM</category>
       </categories>
       <tags>
-        <tag>ROS</tag>
-        <tag>经验分享</tag>
         <tag>SLAM</tag>
+        <tag>ROS</tag>
         <tag>自动驾驶</tag>
+        <tag>经验分享</tag>
       </tags>
   </entry>
   <entry>
@@ -133,9 +148,9 @@
         <category>ROS</category>
       </categories>
       <tags>
-        <tag>Launch文件</tag>
         <tag>ROS</tag>
         <tag>经验分享</tag>
+        <tag>Launch文件</tag>
         <tag>知识总结</tag>
       </tags>
   </entry>
@@ -185,9 +200,9 @@
       </categories>
       <tags>
         <tag>ROS</tag>
+        <tag>自动驾驶</tag>
         <tag>经验分享</tag>
         <tag>知识总结</tag>
-        <tag>自动驾驶</tag>
         <tag>OpenCV</tag>
         <tag>apollo</tag>
         <tag>python</tag>
