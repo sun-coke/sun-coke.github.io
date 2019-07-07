@@ -113,7 +113,7 @@
 <meta property="og:image" content="http://yoursite.com/路径规划/局部路径规划算法之DWA/2.png">
 <meta property="og:image" content="http://yoursite.com/路径规划/局部路径规划算法之DWA/3.png">
 <meta property="og:image" content="http://yoursite.com/路径规划/局部路径规划算法之DWA/4.png">
-<meta property="og:updated_time" content="2019-06-21T11:49:40.000Z">
+<meta property="og:updated_time" content="2019-07-07T13:04:35.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="局部路径规划算法之DWA">
 <meta name="twitter:description" content="ROS中的DWA（dynamic window approach）局部路径规划算法python实现！">
@@ -358,8 +358,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-28T21:28:02+08:00">
-                2019-05-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-07T21:28:02+08:00">
+                2019-06-07
               </time>
             
 
@@ -423,6 +423,7 @@
 <a id="more"></a>
 <blockquote class="blockquote-center"><p>幸运的爱,与勇者长相随。</p>
 </blockquote>
+<p>在上一篇文章中介绍了全局路径规划算法<a href="https://sun-coke.github.io/2019/05/10/TB3-Autorace%E4%B9%8B%E4%BF%A1%E5%8F%B7%E7%81%AF%E6%A3%80%E6%B5%8B/" target="_blank" rel="noopener">《全局路径规划算法之Dijkstra、A*》</a><br>，结合局部路径规划算法可以使移动机器人可以在已知地图环境的情况下轻松地完成避障任务并且得到最优的路径。</p>
 <h1 id="算法简介"><a href="#算法简介" class="headerlink" title="算法简介"></a>算法简介</h1><p>机器人在获得目的地信息后，首先经过全局路径规划规划出一条大致可行的路线，然后调用局部路径规划器根据这条路线及costmap的信息规划出机器人在局部时做出具体行动策略，ROS中主要是使用了DWA算法（dynamic window approach）。在ROS中每当move_base处于规划状态就调用DWA算法计算出一条最佳的速度指令，发送给机器人运动底盘执行。</p>
 <h1 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h1><p>DWA算法主要是在速度空间（v,w）中采样多组速度，并模拟这些速度在一定时间（sim_period）内的运动轨迹，再通过一个评价函数对这些轨迹打分，选取得分最高的最优路径，并把相应的速度控制指令发送给机器人。该算法的突出点在于动态窗口这个概念，它的含义是依据移动机器人的加减速性能限定速度速度采样空间在一个可行的动态范围内。</p>
 <h1 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h1><h2 id="运动学建模"><a href="#运动学建模" class="headerlink" title="运动学建模"></a>运动学建模</h2><p>对机器人建立运动学模型，将线速度和角速度进行数学公式表示。<br>代码封装如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">motion</span><span class="params">(x, u, dt)</span>:</span></span><br><span class="line">    <span class="comment"># motion model</span></span><br><span class="line">    x[<span class="number">2</span>] += u[<span class="number">1</span>] * dt</span><br><span class="line">    x[<span class="number">0</span>] += u[<span class="number">0</span>] * math.cos(x[<span class="number">2</span>]) * dt</span><br><span class="line">    x[<span class="number">1</span>] += u[<span class="number">0</span>] * math.sin(x[<span class="number">2</span>]) * dt</span><br><span class="line">    x[<span class="number">3</span>] = u[<span class="number">0</span>]</span><br><span class="line">    x[<span class="number">4</span>] = u[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure></p>
@@ -496,8 +497,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/ROS/ROS中的日志消息/" rel="next" title="ROS中的日志（log）消息">
-                <i class="fa fa-chevron-left"></i> ROS中的日志（log）消息
+              <a href="/路径规划/全局路径规划算法之Dijkstra-A/" rel="next" title="全局路径规划算法之Dijkstra、A*">
+                <i class="fa fa-chevron-left"></i> 全局路径规划算法之Dijkstra、A*
               </a>
             
           </div>
@@ -608,7 +609,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
