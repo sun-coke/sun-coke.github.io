@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[ROS企业级常用工具之rqt]]></title>
+    <url>%2FROS%2FROS%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E4%B9%8BGUI%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7rqt%2F</url>
+    <content type="text"><![CDATA[整理有关GUI开发工具RQT相关的插件介绍，用以算法开发初期的测试数据分析。 贵有恒，何必三更起五更眠。最无益，只怕一日曝十日寒。 rqt简介RQt是一个图形化用户接口框架，它允许以插件的形式来实现各种图形工具和接口。在RQT中，能够以可停靠窗口的形式来运行存在的GUI工具。可以通过命令“rqt”来运行RQt工具和插件。这个GUI允许你载入并运行任何插件。当然，你也可以以独立窗口的形式运行插件。另外,RViz也被集成到rqt的插件中,这使rqt成为ROS的一个不可缺少的GUI工具。 另外,顾名思义,rqt是基于Qt开发的,而Qt是一个广泛用于计算机编程的GUI编程的跨平台框架,用户可以方便自由地添加和开发插件。 rqt安装与运行全组件命令安装ROS时,rqt会默认安装。如果未安装“desktop-full”或未安装rqt,请使用以下命令进行安装。1sudo apt-get install ros-kinetic-rqt* 运行rqt的命令如下。只需键入rqt。作为参考,用户可以使用节点执行命令“rosrun rqt_gui rqt_gui”执行它。 运行rqt将显示rqt的GUI界面,如图所示。如果是第一次,它将只显示菜单,此外没有任何内容。这是因为还没有指定rqt直接运行的插件程序。 rqt的各菜单如下: 文件(File) 只有一个退出rqt的子菜单。 动作(Running) 显示当前运行的插件,在不需要的时候可以停止。 插件(Plugins) 有30多个插件。可以选择并使用它。 全景(Perspectives) 用于保存当前运行的插件组,并在下次运行相同的插件组。 rqt插件如果从rqt的顶部菜单中选择[插件(Plugins)],则可以看到大约30个插件。该插件具有以下功能。大部分是非常有用的rqt的默认插件。非官方的插件也可以添加到此,需要的话用户也可以添加自己开发的rqt插件。 动作(Action)■ Action Type Browser: 查看动作类型的数据结构的插件。 配置(Configuration)■ Dynamic Reconfigure: 这是用于更改节点参数值的插件。■ Launch: roslaunch的GUI插件,当不记得roslaunch的名称或配置时,它非常有用。 自检(Introspection)■ Node Graph: 一种图形视图类型的插件,可以检查当前运行中的节点间的关系图与消息的流动。■ Package Graph: 这是一个图形视图插件,显示功能包的依赖关系。■ Process Monitor: 可以检查当前正在运行的节点的PID(进程ID)、CPU利用率、内存使用情况和线程数。 日志(Logging)■ Bag: 是一个与ROS数据记录相关的插件。■ Console: 它是一个允许用户在一个屏幕中查看来自节点的警告(Warning)和错误(Error)等消息的插件。■ Logger Level: 通过选择负责发布日志的记录器节点来设置Debug、Info、Warn、Error和 Fatal等日志插件。信息(称为记录器级别 )的工具。调试时选择Debug会非常方便。 多种工具(Miscellaneous Tools)■ Python Console: Python控制台屏幕插件。■ Shell: 它是一个运行shell的插件。■ Web: 运行Web浏览器的插件。 机器人工具(Robot Tools)■ Controller Manager: 这是一个允许用户检查机器人控制器的状态、类型和硬件接口信息插件。■ Diagnostic Viewer: 这是一个检查机器人设备和错误的插件。■ Moveit! Monitor: 用于查看运动规划的MoveIt!数据的插件。■ Robot Steering: 手动控制机器人的GUI工具。在远程控制时,利用此GUI工具进行机器人遥控会非常有用。■ Runtime Monitor: 它是一个可以实时查看节点中发生的警告或错误的插件。 服务(Services)■ Service Caller: 它是一个GUI插件,可以连接到正在运行中的服务服务器,并请求服务 。这对测试服务很有用。■ Service Type Browser: 这是一个用于检查服务类型的数据结构的插件。 话题(Topics)■ Easy Message Publisher: 这是一个允许用户在GUI环境中发布话题的插件。■ Topic Publisher: 这是一个可以发布话题的GUI插件。这对话题测试很有用。■ Topic Type Browser: 这是检查话题类型的数据结构的插件。这对于检查话题类型很有用。■ Topic Monitor: 这是一个列出当前正在使用的话题,并确认用户选择的话题信息的插件。 可视化(Visualization)■ Image View: 这是一个可以检查相机的图像数据的插件。这对于简单的照相机数据测试非常有用。■ Navigation Viewer: 这是一个用于在导航中检查机器人的位置和目标点的插件。■ Plot: 这是一个绘图二维数据的GUI 插件。这对于二维数据绘图非常有用。■ Pose View: 它是一个显示机器人模型和TF的姿态(pose,位置和方向)的插件。■ RViz: 这是RViz插件,是一个3D可视化工具插件。■ TF Tree: 这是一个图形视图插件,它用树形图显示了通过TF收集的每个坐标之间的关系。]]></content>
+      <categories>
+        <category>ROS</category>
+      </categories>
+      <tags>
+        <tag>ROS</tag>
+        <tag>经验分享</tag>
+        <tag>知识总结</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ROS企业级常用指令之rosbag]]></title>
     <url>%2FROS%2FROS%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E4%B9%8Brosbag%2F</url>
     <content type="text"><![CDATA[整理一下在做无人驾驶公司实习时较为常用的ROS指令，同时强化ROS学习！ 莫笑他人背驼，自己把腰挺直。 rosbag简介 命令 详细说明 rosbag record [选项] [话题名称] 将指定话题的消息记录到bag文件 rosbag info [文件名称] 查看bag文件的信息 rosbag play [文件名称] 回放指定的bag文件 rosbag compress [文件名称] 压缩指定的bag文件 rosbag decompress [文件名称] 解压指定的bag文件 rosbag filter [输入文件] [输出文件] [选项] 生成一个删除了指定内容的新的bag文件 rosbag reindex bag [文件名称] 刷新索引 rosbag check bag [文件名称] 检查指定的bag文件是否能在当前系统中回放 rosbag fix [输入文件] [输出文件] [选项] 将无法回放的bag文件修改成可以回放的文件 准备工作关闭所有节点。通过在不同的终端窗口中运行以下命令来运行turtlesim_node和turtle_teleop_key。123$ roscore$ rosrun turtlesim turtlesim_node$ rosrun turtlesim turtle_teleop_key rosbag record [选项][话题名称]记录指定话题的消息。首先,使用rostopic list命令查看ROS网络上当前正在使用的话题列表。123456$ rostopic list/ rosout/ rosout_agg/ turtle1/cmd_vel/ turtle1/color_sensor/ turtle1/pose 如下所示,把要记录的话题作为record命令的选项来输入,则会开始记录于bag文件中。在开始记录之后,在运行turtle_teleop_key节点的终端窗口中用键盘的方向键移动乌龟,则会记录选定的/turtle1/cmd_vel话题。然后按[Ctrl + c]结束记录,则会生成一个文件名为“2019-06-29-14-16-28.bag”的bag文件,如下所示。123$ rosbag record /turtle1/cmd_vel[INFO] [1499663788.499650818]: Subscribing to/turtle1/cmd_vel[INFO] [1499663788.502937962]: Recording to 2019-06-29-14-16-28.bag 如果要同时记录所有话题,而不是特定话题,请在命令中添加“-a”选项。1$ rosbag record - a rosbag info [bag文件名]查看bag文件的信息。用户可以检查bag文件的信息。以下示例记录了/turtle1/cmd_vel话题,共记录了373条消息。使用的消息类型是geometry_msgs/Twist。此外,还可以检查路径,bag版本和时间等信息。123456789$ rosbag info 2019-06-29-14-16-28.bagpath : 2019-06-29-14-16-28.bagduration : 17.4sversion : 2.0size : 44.5 KBmessages : 373compression : none [1/1 chunks] types : geometry_msgs/Twist [9f195f881246fdfa2798d1d3eebca84a]topics : /turtle1/cmd_vel 373 msgs : geometry_msgs/Twist #rosbag play [bag文件名]回放指定的bag文件。下面是回放之前记录的2019-06-29-14-16-28.bag文件的命令。如此一来,当时记录的/turtle1/cmd_vel消息会原原本本地传输,因此在屏幕上可以看到乌龟移动的情况。但是,只有重新执行turtlesim_node,使得优先初始化机器人轨迹和机器人位置,才可以获得相同的结果。12345678$ rosbag play 2019-06-29-14-16-28.bag[INFO] [1499664453.406867251]: Opening 2019-06-29-14-16-28.bagWaiting 0.2 seconds after advertising topics ... done .Hit space to toggle paused , or &apos;s&apos; to step .[RUNNING] Bag Time : 1499663790.357031 Duration : 0.000000/17.419737[RUNNING] Bag Time : 1499663790.357031 Duration : 0.000000/17.419737[RUNNING] Bag Time : 1499663790.357163 Duration : 0.000132/17.419737~ ~ ~ rosbag compress [bag文件名]压缩指定的bag文件。如果使用本例中使用的命令对长时间记录数据进行压缩,则将占用很小的存储空间。12345$ rosbag compress 2019-06-29-14-16-28.bag2019-06-29-14-16-28.bag 0% 0.0 KB 00:002019-06-29-14-16-28.bag 100% 35.0 KB 00:002019-06-29-14-16-28.bag 12.7kB2019-06-29-14-16-28.orig.bag 45.5kB bag文件被缩减为1/4。 压缩前的原始文件会以文件名添加“orig”的文件另行存储。 rosbag decompress [bag文件名]对指定的bag文件解压。这个命令会将文件恢复到压缩之前的状态。123$ rosbag decompress 2019-06-29-14-16-28.bag2019-06-29-14-16-28.bag 0% 0.0 KB 00:002019-06-29-14-16-28.bag 100% 35.0 KB 00:00]]></content>
@@ -187,8 +200,8 @@
       <tags>
         <tag>ROS</tag>
         <tag>经验分享</tag>
-        <tag>知识总结</tag>
         <tag>Launch文件</tag>
+        <tag>知识总结</tag>
       </tags>
   </entry>
   <entry>

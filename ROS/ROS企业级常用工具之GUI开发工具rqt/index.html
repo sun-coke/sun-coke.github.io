@@ -84,7 +84,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="ROS,经验分享,知识总结,">
 
 
 
@@ -100,17 +100,23 @@
 
 
 
-<meta name="description" content="普通的开发者，热情的学习者">
-<meta name="keywords" content="ROS&#x2F;python&#x2F;计算机视觉&#x2F;TB机器人&#x2F;路径规划&#x2F;运动控制&#x2F;无人驾驶&#x2F;移动机器人">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Steven&#39;s Station">
-<meta property="og:url" content="http://yoursite.com/tags/知识总结/index.html">
+<meta name="description" content="整理有关GUI开发工具RQT相关的插件介绍，用以算法开发初期的测试数据分析。">
+<meta name="keywords" content="ROS,经验分享,知识总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS企业级常用工具之rqt">
+<meta property="og:url" content="http://yoursite.com/ROS/ROS企业级常用工具之GUI开发工具rqt/index.html">
 <meta property="og:site_name" content="Steven&#39;s Station">
-<meta property="og:description" content="普通的开发者，热情的学习者">
+<meta property="og:description" content="整理有关GUI开发工具RQT相关的插件介绍，用以算法开发初期的测试数据分析。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS企业级常用工具之GUI开发工具rqt/0.jpeg">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS企业级常用工具之GUI开发工具rqt/1.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS企业级常用工具之GUI开发工具rqt/2.png">
+<meta property="og:image" content="http://yoursite.com/ROS/ROS企业级常用工具之GUI开发工具rqt/3.png">
+<meta property="og:updated_time" content="2019-08-04T14:31:59.891Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Steven&#39;s Station">
-<meta name="twitter:description" content="普通的开发者，热情的学习者">
+<meta name="twitter:title" content="ROS企业级常用工具之rqt">
+<meta name="twitter:description" content="整理有关GUI开发工具RQT相关的插件介绍，用以算法开发初期的测试数据分析。">
+<meta name="twitter:image" content="http://yoursite.com/ROS/ROS企业级常用工具之GUI开发工具rqt/0.jpeg">
 
 
 
@@ -139,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/知识总结/">
+  <link rel="canonical" href="http://yoursite.com/ROS/ROS企业级常用工具之GUI开发工具rqt/">
 
 
 
 
 
-  <title>标签: 知识总结 | Steven's Station</title>
+  <title>ROS企业级常用工具之rqt | Steven's Station</title>
   
 
 
@@ -170,7 +176,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <a href="https://github.com/sun-coke" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -308,182 +314,234 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>知识总结<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/ROS/ROS企业级常用工具之GUI开发工具rqt/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Steven Suen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Steven's Station">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/ROS/ROS企业级常用工具之GUI开发工具rqt/" itemprop="url">
-              
-                <span itemprop="name">ROS企业级常用工具之rqt</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">ROS企业级常用工具之rqt</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-07T21:48:16+08:00" content="2019-07-07">
-          07-07
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-07T21:48:16+08:00">
+                2019-07-07
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+    
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/ROS/ROS企业级常用指令之rosbag/" itemprop="url">
-              
-                <span itemprop="name">ROS企业级常用指令之rosbag</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-30T17:36:25+08:00" content="2019-06-30">
-          06-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/ROS2/ROS2新时代/" itemprop="url">
-              
-                <span itemprop="name">ROS2新时代</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-22T19:13:55+08:00" content="2019-06-22">
-          06-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/ROS/Launch文件编写技巧/" itemprop="url">
-              
-                <span itemprop="name">Launch文件编写技巧</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-21T15:49:31+08:00" content="2019-04-21">
-          04-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>整理有关GUI开发工具RQT相关的插件介绍，用以算法开发初期的测试数据分析。<br><img src="/ROS/ROS企业级常用工具之GUI开发工具rqt/0.jpeg" alt="0"><br><a id="more"></a></p>
+<blockquote class="blockquote-center"><p>贵有恒，何必三更起五更眠。<br>最无益，只怕一日曝十日寒。</p>
+</blockquote>
+<h1 id="rqt简介"><a href="#rqt简介" class="headerlink" title="rqt简介"></a>rqt简介</h1><p>RQt是一个图形化用户接口框架，它允许以插件的形式来实现各种图形工具和接口。在RQT中，能够以可停靠窗口的形式来运行存在的GUI工具。可以通过命令“rqt”来运行RQt工具和插件。这个GUI允许你载入并运行任何插件。当然，你也可以以独立窗口的形式运行插件。另外,RViz也被集成到rqt的插件中,这使rqt成为ROS的一个不可缺少的GUI工具。</p>
+<p>另外,顾名思义,rqt是基于Qt开发的,而Qt是一个广泛用于计算机编程的GUI编程的跨平台框架,用户可以方便自由地添加和开发插件。</p>
+<h1 id="rqt安装与运行"><a href="#rqt安装与运行" class="headerlink" title="rqt安装与运行"></a>rqt安装与运行</h1><p>全组件命令安装ROS时,rqt会默认安装。如果未安装“desktop-full”或未安装rqt,请使用以下命令进行安装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ros-kinetic-rqt*</span><br></pre></td></tr></table></figure></p>
+<p>运行rqt的命令如下。只需键入rqt。作为参考,用户可以使用节点执行命令“rosrun rqt_gui rqt_gui”执行它。</p>
+<p>运行rqt将显示rqt的GUI界面,如图所示。如果是第一次,它将只显示菜单,此外没有任何内容。这是因为还没有指定rqt直接运行的插件程序。<br><img src="/ROS/ROS企业级常用工具之GUI开发工具rqt/1.png" alt="1"></p>
+<p>rqt的各菜单如下:</p>
+<ol>
+<li>文件(File)       只有一个退出rqt的子菜单。</li>
+<li>动作(Running)    显示当前运行的插件,在不需要的时候可以停止。</li>
+<li>插件(Plugins)    有30多个插件。可以选择并使用它。</li>
+<li>全景(Perspectives)     用于保存当前运行的插件组,并在下次运行相同的插件组。</li>
+</ol>
+<h1 id="rqt插件"><a href="#rqt插件" class="headerlink" title="rqt插件"></a>rqt插件</h1><p>如果从rqt的顶部菜单中选择[插件(Plugins)],则可以看到大约30个插件。该插件具有以下功能。大部分是非常有用的rqt的默认插件。非官方的插件也可以添加到此,需要的话用户也可以添加自己开发的rqt插件。<br><img src="/ROS/ROS企业级常用工具之GUI开发工具rqt/2.png" alt="2"></p>
+<h2 id="动作-Action"><a href="#动作-Action" class="headerlink" title="动作(Action)"></a>动作(Action)</h2><p>■ Action Type Browser: 查看动作类型的数据结构的插件。</p>
+<h2 id="配置-Configuration"><a href="#配置-Configuration" class="headerlink" title="配置(Configuration)"></a>配置(Configuration)</h2><p>■ Dynamic Reconfigure: 这是用于更改节点参数值的插件。<br>■ Launch: roslaunch的GUI插件,当不记得roslaunch的名称或配置时,它非常有用。</p>
+<h2 id="自检-Introspection"><a href="#自检-Introspection" class="headerlink" title="自检(Introspection)"></a>自检(Introspection)</h2><p>■ Node Graph: 一种图形视图类型的插件,可以检查当前运行中的节点间的关系图与消息的流动。<br>■ Package Graph: 这是一个图形视图插件,显示功能包的依赖关系。<br>■ Process Monitor: 可以检查当前正在运行的节点的PID(进程ID)、CPU利用率、内存使用情况和线程数。</p>
+<h2 id="日志-Logging"><a href="#日志-Logging" class="headerlink" title="日志(Logging)"></a>日志(Logging)</h2><p>■ Bag: 是一个与ROS数据记录相关的插件。<br>■ Console: 它是一个允许用户在一个屏幕中查看来自节点的警告(Warning)和错误(Error)等消息的插件。<br>■ Logger Level: 通过选择负责发布日志的记录器节点来设置Debug、Info、Warn、Error和 Fatal等日志插件。信息(称为记录器级别 )的工具。调试时选择Debug会非常方便。</p>
+<h2 id="多种工具-Miscellaneous-Tools"><a href="#多种工具-Miscellaneous-Tools" class="headerlink" title="多种工具(Miscellaneous Tools)"></a>多种工具(Miscellaneous Tools)</h2><p>■ Python Console: Python控制台屏幕插件。<br>■ Shell: 它是一个运行shell的插件。<br>■ Web: 运行Web浏览器的插件。</p>
+<h2 id="机器人工具-Robot-Tools"><a href="#机器人工具-Robot-Tools" class="headerlink" title="机器人工具(Robot Tools)"></a>机器人工具(Robot Tools)</h2><p>■ Controller Manager: 这是一个允许用户检查机器人控制器的状态、类型和硬件接口信息插件。<br>■ Diagnostic Viewer: 这是一个检查机器人设备和错误的插件。<br>■ Moveit! Monitor: 用于查看运动规划的MoveIt!数据的插件。<br>■ Robot Steering: 手动控制机器人的GUI工具。在远程控制时,利用此GUI工具进行机器人遥控会非常有用。<br>■ Runtime Monitor: 它是一个可以实时查看节点中发生的警告或错误的插件。</p>
+<h2 id="服务-Services"><a href="#服务-Services" class="headerlink" title="服务(Services)"></a>服务(Services)</h2><p>■ Service Caller: 它是一个GUI插件,可以连接到正在运行中的服务服务器,并请求服务 。这对测试服务很有用。<br>■ Service Type Browser: 这是一个用于检查服务类型的数据结构的插件。</p>
+<h2 id="话题-Topics"><a href="#话题-Topics" class="headerlink" title="话题(Topics)"></a>话题(Topics)</h2><p>■ Easy Message Publisher: 这是一个允许用户在GUI环境中发布话题的插件。<br>■ Topic Publisher: 这是一个可以发布话题的GUI插件。这对话题测试很有用。<br>■ Topic Type Browser: 这是检查话题类型的数据结构的插件。这对于检查话题类型很有用。<br>■ Topic Monitor: 这是一个列出当前正在使用的话题,并确认用户选择的话题信息的插件。</p>
+<h2 id="可视化-Visualization"><a href="#可视化-Visualization" class="headerlink" title="可视化(Visualization)"></a>可视化(Visualization)</h2><p>■ Image View: 这是一个可以检查相机的图像数据的插件。这对于简单的照相机数据测试非常有用。<br>■ Navigation Viewer: 这是一个用于在导航中检查机器人的位置和目标点的插件。<br>■ Plot: 这是一个绘图二维数据的GUI 插件。这对于二维数据绘图非常有用。<br>■ Pose View: 它是一个显示机器人模型和TF的姿态(pose,位置和方向)的插件。<br>■ RViz: 这是RViz插件,是一个3D可视化工具插件。<br>■ TF Tree: 这是一个图形视图插件,它用树形图显示了通过TF收集的每个坐标之间的关系。<br><img src="/ROS/ROS企业级常用工具之GUI开发工具rqt/3.png" alt="3"></p>
 
       
-        
+    </div>
+    
+    
+    
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/ROS/神秘有爱的小家族-乌龟帮/" itemprop="url">
-              
-                <span itemprop="name">神秘有爱的小家族--乌龟帮</span>
-              
-            </a>
-        
-      </h2>
+    
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-15T19:48:28+08:00" content="2019-04-15">
-          04-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
       
-        
+    <div>
+      
+        <div> 
+    
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束  <i class="fa fa-heart" style="font-size:12px"></i>  感谢阅读-------------</div> 
+    
+</div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/ROS/Steven Suen的第一篇博客/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-01T22:28:53+08:00" content="2019-04-01">
-          04-01
-        </time>
-      </div>
-
-    </header>
-  </article>
 
 
       
     </div>
 
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ROS/" rel="tag"><i class="fa fa-tag"></i>ROS</a> 
+          
+            <a href="/tags/经验分享/" rel="tag"><i class="fa fa-tag"></i>经验分享</a> 
+          
+            <a href="/tags/知识总结/" rel="tag"><i class="fa fa-tag"></i>知识总结</a> 
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ROS/ROS企业级常用指令之rosbag/" rel="next" title="ROS企业级常用指令之rosbag">
+                <i class="fa fa-chevron-left"></i> ROS企业级常用指令之rosbag
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -491,6 +549,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDUwMy8yMTAzNA=="></div>
+    
+  </div>
+
 
         </div>
         
@@ -511,8 +575,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Steven Suen">
           <p class="site-author-name" itemprop="name">Steven Suen</p>
@@ -634,6 +707,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#rqt简介"><span class="nav-number">1.</span> <span class="nav-text">rqt简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rqt安装与运行"><span class="nav-number">2.</span> <span class="nav-text">rqt安装与运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rqt插件"><span class="nav-number">3.</span> <span class="nav-text">rqt插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动作-Action"><span class="nav-number">3.1.</span> <span class="nav-text">动作(Action)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-Configuration"><span class="nav-number">3.2.</span> <span class="nav-text">配置(Configuration)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自检-Introspection"><span class="nav-number">3.3.</span> <span class="nav-text">自检(Introspection)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志-Logging"><span class="nav-number">3.4.</span> <span class="nav-text">日志(Logging)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多种工具-Miscellaneous-Tools"><span class="nav-number">3.5.</span> <span class="nav-text">多种工具(Miscellaneous Tools)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器人工具-Robot-Tools"><span class="nav-number">3.6.</span> <span class="nav-text">机器人工具(Robot Tools)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务-Services"><span class="nav-number">3.7.</span> <span class="nav-text">服务(Services)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#话题-Topics"><span class="nav-number">3.8.</span> <span class="nav-text">话题(Topics)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化-Visualization"><span class="nav-number">3.9.</span> <span class="nav-text">可视化(Visualization)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -805,10 +894,10 @@ setInterval("createtime()",250);
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
@@ -837,6 +926,17 @@ setInterval("createtime()",250);
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
